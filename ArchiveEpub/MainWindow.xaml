@@ -1,8 +1,27 @@
 ﻿<Window x:Class="ArchiveEpub.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+        Title="MainWindow" Height="290.299" Width="320.522">
+    <Window.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="10,0"/>
+        </Style>
+    </Window.Resources>
+    <StackPanel Orientation="Vertical">
+        <Label>Epubにするディレクトリをドロップしてください</Label>
+        <TextBox Name="ePubDirPathTextBox" PreviewDragOver="OnPreviewDragOver" Drop="OnDrop" TextChanged="TextChanged"/>
+        <GroupBox Margin="10">
+            <GroupBox.Header>
+                <CheckBox Name="useEpubCheck" IsChecked="True" Click="useEpubCheck_Click">EpubCheckを使用する</CheckBox>
+            </GroupBox.Header>
+            <StackPanel>
+                <Label>java.exeをドロップしてください</Label>
+                <TextBox Name="javaPathTextBox" IsEnabled="{Binding ElementName=useEpubCheck,Path=IsChecked}" PreviewDragOver="OnPreviewDragOver" Drop="OnDrop" TextChanged="TextChanged"/>
+                <Label>EpuCheckのjarファイルをドロップしてください</Label>
+                <TextBox Name="EpubCheckPathTextBox" IsEnabled="{Binding ElementName=useEpubCheck,Path=IsChecked}" TextChanged="TextChanged" PreviewDragOver="OnPreviewDragOver" Drop="OnDrop"/>
+            </StackPanel>
+        </GroupBox>
+        <Button Name="GenerateEpub" Margin="20,0,20,20" HorizontalAlignment="Center" FontSize="22" VerticalAlignment="Center" Click="GenerateEpub_Click">EPUBを生成する</Button>
+    </StackPanel>
+
 </Window>
