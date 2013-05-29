@@ -54,8 +54,23 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="EpubArchiver.cs" />
+    <Compile Include="EpubCheck\EpubCheckingDialog.xaml.cs">
+      <DependentUpon>EpubCheckingDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EpubCheck\EpubCheckResultDialog.xaml.cs">
+      <DependentUpon>EpubCheckResultDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EpubCheck\EpubCheckWrapper.cs" />
     <Compile Include="PackageDocument.cs" />
     <Compile Include="ZipStorer.cs" />
+    <Page Include="EpubCheck\EpubCheckingDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EpubCheck\EpubCheckResultDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -22,8 +22,6 @@ namespace ArchiveEpub
             UpdateGenerateEpubStatus();
         }
 
-
-
         //ファイルがドラッグされてきたらうける
         private void OnPreviewDragOver(object sender, DragEventArgs e)
         {
@@ -90,10 +88,7 @@ namespace ArchiveEpub
 
         private void GenerateEpub_Click(object sender, RoutedEventArgs e)
         {
-            var srcDir = @"C:\Users\saube_000\Desktop\OOPforDogs";
-            var dstFile = @"C:\Users\saube_000\Desktop\test01.epub";
-
-            EpubArchiver.ArchiveEpub(srcDir,dstFile);
+            GenerateEpub.IsEnabled = false; //ボタンを押せなくする
 
             //設定を保存する
             Properties.Settings.Default.epubDirDefault = ePubDirPathTextBox.Text;
@@ -101,6 +96,50 @@ namespace ArchiveEpub
             Properties.Settings.Default.epubCheckPathDefault = EpubCheckPathTextBox.Text;
 
             Properties.Settings.Default.Save();
+
+
+            
+            var srcDir = ePubDirPathTextBox.Text;
+            var dstDir = Path.GetDirectoryName(srcDir);             //親ディレクトリを取得
+            var dstFileName = Path.GetFileName(srcDir) + ".epub";   //ファイル名はディレクトリ名.epub
+            var dstFile = Path.Combine(dstDir, dstFileName);
+
+            if (File.Exists(dstFile)==true)   //既にファイルが存在していたら
+            {
+                var result = MessageBox.Show("上書きしますか?", "質問", MessageBoxButton.YesNo);
+                if (result == MessageBoxResult.Yes) //上書きするなら
+                {
+                    File.Delete(dstFile);
+                }
+                else
+                {
+                    GenerateEpub.IsEnabled = true;  //押せるように戻す
+                    return;
+
+                }
+            }
+
+
+            var ret = EpubArchiver.ArchiveEpub(srcDir, dstFile);
+            if ((ret == true)                       //アーカイブに成功していたら
+                && (useEpubCheck.IsChecked == true))   //EpubCheckありなら
+            {
+                var epubChecker = new EpubCheckWrapper(javaPathTextBox.Text, EpubCheckPathTextBox.Text, dstFile);
+                epubChecker.CheckEpub();
+            }
+            else
+            {
+                MessageBox.Show("EPUBが生成されました");
+            }
+
+            //設定を保存する
+            Properties.Settings.Default.epubDirDefault = ePubDirPathTextBox.Text;
+            Properties.Settings.Default.javaPathDefault = javaPathTextBox.Text;
+            Properties.Settings.Default.epubCheckPathDefault = EpubCheckPathTextBox.Text;
+
+            Properties.Settings.Default.Save();
+
+            GenerateEpub.IsEnabled = true;  //押せるように戻す
         }
     }
 }

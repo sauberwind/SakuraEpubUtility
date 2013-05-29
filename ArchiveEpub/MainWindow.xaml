@@ -17,7 +17,7 @@
             <StackPanel>
                 <Label>java.exeをドロップしてください</Label>
                 <TextBox Name="javaPathTextBox" IsEnabled="{Binding ElementName=useEpubCheck,Path=IsChecked}" PreviewDragOver="OnPreviewDragOver" Drop="OnDrop" TextChanged="TextChanged"/>
-                <Label>EpuCheckのjarファイルをドロップしてください</Label>
+                <Label>EpubCheckのjarファイルをドロップしてください</Label>
                 <TextBox Name="EpubCheckPathTextBox" IsEnabled="{Binding ElementName=useEpubCheck,Path=IsChecked}" TextChanged="TextChanged" PreviewDragOver="OnPreviewDragOver" Drop="OnDrop"/>
             </StackPanel>
         </GroupBox>

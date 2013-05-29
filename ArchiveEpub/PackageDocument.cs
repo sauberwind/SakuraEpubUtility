@@ -6,7 +6,7 @@ namespace ArchiveEpub
 {
     class PackageDocument
     {
-        //パッケージドキュメントのUUIDとmodifiedを更新する
+        //パッケージドキュメントを更新する
         public static void UpdatePackageDocument(string srcFile)
         {
             XNamespace package = "http://www.idpf.org/2007/opf";
@@ -14,21 +14,27 @@ namespace ArchiveEpub
 
 
             //opfファイルを読み込む
-            var doc = XElement.Load(srcFile);
+            var doc = XDocument.Load(srcFile);
 
-            //identifierをGUIDで書き換える
-            var idNode = doc.Descendants(dc + "identifier").First();
-            var guid = Guid.NewGuid();
-            idNode.Value = guid.ToString();
-
-            //lastmodifiedを書き換える
-            var metaNodes = doc.Descendants(package + "meta");
-            var lastModifiedNode = metaNodes.Where(e => e.Attribute("property").Value == "dcterms:modified").First();
-            var utc = DateTime.UtcNow;
-            lastModifiedNode.Value = (utc.ToString("s") + 'Z');
-
-            //ファイルを上書きする
+            //Epub3であればlastmodifiedを書き換える
+            var packNode = doc.Descendants().Where(e => e.Name.LocalName == "package");
+            var packnode1 = packNode.First();
+            var epubVer = packnode1.Attribute("version").Value;
+            if (epubVer.Equals("3.0"))
+            {
+                var metaNodes = doc.Descendants().Where(e => e.Name.LocalName == "meta");   //metaデータを取得する
+                var hasProps = metaNodes.Where(e => e.Attribute("property") != null);       //property属性を持つものを取得する
+                var lastModifiedNode = hasProps.Where(e => e.Attribute("property").Value == "dcterms:modified").FirstOrDefault();
+                var utc = DateTime.UtcNow;                          //協定世界時を取得
+                lastModifiedNode.Value = (utc.ToString("s") + 'Z'); //YYYY-MM-DDThh:mm:ssZ
+            }
             doc.Save(srcFile);
         }
     }
+    //identifierをGUIDで書き換える
+    //var idNode = doc.Descendants(dc + "identifier").First();
+    //var guid = Guid.NewGuid();
+    //idNode.Value = guid.ToString();
+
+
 }

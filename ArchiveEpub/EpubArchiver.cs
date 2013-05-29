@@ -13,7 +13,8 @@ namespace ArchiveEpub
     {
         static string packageDocumentPath;
 
-        public static void ArchiveEpub(string srcDirName, string dstFileName)
+        //EPUBファイルをアーカイブする。成功すればtrueが返る
+        public static bool ArchiveEpub(string srcDirName, string dstFileName)
         {
             packageDocumentPath = null;
 
@@ -27,7 +28,7 @@ namespace ArchiveEpub
                     mes += (err + @"\n");
                 }
                 MessageBox.Show(mes);
-                return;
+                return false;
             }
 
             //パッケージドキュメントのUUIDとmodifiedを更新する
@@ -35,6 +36,8 @@ namespace ArchiveEpub
 
             //Epubを作成する
             PackEpub(srcDirName, dstFileName);
+
+            return true;
         }
 
         private static void PackEpub(string srcDirName, string dstFileName)
