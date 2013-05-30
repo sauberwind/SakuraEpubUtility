@@ -145,8 +145,8 @@ namespace ArchiveEpub
                 {
                     //container.xmlファイルからパッケージ文書を取得する
                     var doc = XElement.Load(container);
-                    var rootFileNode = doc.Descendants().Where(e => e.Name.LocalName == "rootfile");
-                    var rootFilePath = rootFileNode.Attributes("full-path").First().Value;
+                    var rootFileNodes = doc.Descendants().Where(e => e.Name.LocalName == "rootfile");
+                    var rootFilePath = rootFileNodes.First().Attributes("full-path").First().Value;
 
                     packageDocumentPath = Path.Combine(srdDir, rootFilePath);   //パッケージ文書パスを保存
                     if (File.Exists(packageDocumentPath) != true)   //パッケージ文書が存在するか
