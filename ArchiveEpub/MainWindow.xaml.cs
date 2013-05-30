@@ -79,11 +79,10 @@ namespace ArchiveEpub
         
         }
 
-        //EpubCheckを使用するイベントハンドラ
+        //EpubCheckを使用するチェックボックスのイベントハンドラ
         private void useEpubCheck_Click(object sender, RoutedEventArgs e)
         {
             UpdateGenerateEpubStatus();
-
         }
 
         private void GenerateEpub_Click(object sender, RoutedEventArgs e)
@@ -96,9 +95,6 @@ namespace ArchiveEpub
             Properties.Settings.Default.epubCheckPathDefault = EpubCheckPathTextBox.Text;
 
             Properties.Settings.Default.Save();
-
-
-            
             var srcDir = ePubDirPathTextBox.Text;
             var dstDir = Path.GetDirectoryName(srcDir);             //親ディレクトリを取得
             var dstFileName = Path.GetFileName(srcDir) + ".epub";   //ファイル名はディレクトリ名.epub
@@ -131,14 +127,6 @@ namespace ArchiveEpub
             {
                 MessageBox.Show("EPUBが生成されました");
             }
-
-            //設定を保存する
-            Properties.Settings.Default.epubDirDefault = ePubDirPathTextBox.Text;
-            Properties.Settings.Default.javaPathDefault = javaPathTextBox.Text;
-            Properties.Settings.Default.epubCheckPathDefault = EpubCheckPathTextBox.Text;
-
-            Properties.Settings.Default.Save();
-
             GenerateEpub.IsEnabled = true;  //押せるように戻す
         }
     }

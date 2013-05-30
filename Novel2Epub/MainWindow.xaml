@@ -1,0 +1,48 @@
+﻿<Window x:Class="Novel2Epub.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="455.97" Width="525">
+    <Window.Resources>
+        <Style TargetType="TextBox">
+            <EventSetter Event="TextChanged" Handler="TextChanged"/>
+            <EventSetter Event="PreviewDragOver" Handler="OnPreviewDragOver"/>
+            <EventSetter Event ="Drop" Handler="OnDrop"/>
+        </Style>
+    </Window.Resources>
+    <StackPanel Orientation="Vertical" Margin="10,0">
+        <Label>題名</Label>
+        <TextBox x:Name="title"/>
+        <Label>著者</Label>
+        <TextBox x:Name="author"/>
+        <Label>発行元</Label>
+        <TextBox x:Name="publisher"/>
+        <Label>小説ファイル(テキストファイルをドロップしてください)</Label>
+        <TextBox x:Name="novel"/>
+        <GroupBox Header="組み版情報">
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Vertical">
+                    <Label>縦組み/横組み</Label>
+                    <RadioButton GroupName="Orientation" Margin="10,0,0,0">縦組</RadioButton>
+                    <RadioButton GroupName="Orientation" Margin="10,0,0,0" IsChecked="True">横組</RadioButton>
+                </StackPanel>
+                <StackPanel Orientation="Vertical">
+                    <Label>インデント</Label>
+                    <RadioButton GroupName="Indent" Margin="10,0,0,0">全角空白</RadioButton>
+                    <RadioButton GroupName="Indent" Margin="10,0,0,0" IsChecked="True">指定なし</RadioButton>
+                </StackPanel>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Margin="10">
+            <GroupBox.Header>
+                <CheckBox Name="useEpubCheck" IsChecked="True" Click="useEpubCheck_Click">EpubCheckを使用する</CheckBox>
+            </GroupBox.Header>
+            <StackPanel>
+                <Label>java.exeをドロップしてください</Label>
+                <TextBox Name="javaPathTextBox" IsEnabled="{Binding ElementName=useEpubCheck,Path=IsChecked}"/>
+                <Label>EpubCheckのjarファイルをドロップしてください</Label>
+                <TextBox Name="EpubCheckPathTextBox" IsEnabled="{Binding ElementName=useEpubCheck,Path=IsChecked}"/>
+            </StackPanel>
+        </GroupBox>
+        <Button x:Name="GenerateEpub" HorizontalAlignment="Center" Margin="91,20,91,0" FontSize="20" Click="GenerateEPUB" Content="EPUB3ファイルを生成する"/>
+    </StackPanel>
+</Window>

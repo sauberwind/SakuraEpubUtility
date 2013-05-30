@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Express 2012 for Windows Desktop
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchiveEpub", "ArchiveEpub\ArchiveEpub.csproj", "{D2456471-CFF8-40E5-9E5A-5FCB8771E5EE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Novel2Epub", "Novel2Epub\Novel2Epub.csproj", "{3B79B7CA-6564-4567-AB8C-77FAEA5B5334}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{D2456471-CFF8-40E5-9E5A-5FCB8771E5EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2456471-CFF8-40E5-9E5A-5FCB8771E5EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2456471-CFF8-40E5-9E5A-5FCB8771E5EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B79B7CA-6564-4567-AB8C-77FAEA5B5334}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B79B7CA-6564-4567-AB8C-77FAEA5B5334}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B79B7CA-6564-4567-AB8C-77FAEA5B5334}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B79B7CA-6564-4567-AB8C-77FAEA5B5334}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
