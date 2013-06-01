@@ -19,17 +19,7 @@ namespace ArchiveEpub
             packageDocumentPath = null;
 
             //最低限必要なファイルの有無を確認する
-            var errorMes = CheckEpubDir(srcDirName);
-            if (errorMes.Count != 0)    //異常があったなら表示して終了する
-            {
-                string mes="";
-                foreach (var err in errorMes)
-                {
-                    mes += (err + @"\n");
-                }
-                MessageBox.Show(mes);
-                return false;
-            }
+            CheckEpubDir(srcDirName);
 
             //パッケージドキュメントのUUIDとmodifiedを更新する
             PackageDocument.UpdatePackageDocument(packageDocumentPath);
@@ -119,7 +109,7 @@ namespace ArchiveEpub
         }
 
         //EPUBを作成するのに必要なファイルが存在しているか確認する
-        private static List<string> CheckEpubDir(string srdDir)
+        public static void CheckEpubDir(string srdDir)
         {
             var errorMes = new List<string>();
 
@@ -155,7 +145,18 @@ namespace ArchiveEpub
                     }
                 }
             }
-            return (errorMes);
+            //エラーがあったなら
+            if (errorMes.Count != 0)
+            {
+                var error = "";
+                foreach (var mes in errorMes)
+                {
+                    error += mes+@"\n";
+                }
+                throw new Exception(error);
+            }
+            
+            
         }
     }
 }

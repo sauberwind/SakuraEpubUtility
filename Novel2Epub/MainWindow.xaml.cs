@@ -2,6 +2,9 @@
 using System.Windows.Controls;
 using System.IO;
 using Novel2Epub.Properties;
+using System.Threading;
+using System.Threading.Tasks;
+using ArchiveEpub;
 namespace Novel2Epub
 {
     /// <summary>
@@ -25,17 +28,60 @@ namespace Novel2Epub
         }
 
         //EPUB生成ボタンが押された
-        private void GenerateEPUB(object sender, RoutedEventArgs e)
+        private async void GenerateEPUB(object sender, RoutedEventArgs e)
         {
-            //設定を保存する
-            Settings.Default.titleDefault = title.Text;
-            Settings.Default.authorDefault = author.Text;
-            Settings.Default.novelFileDefault = novel.Text;
-            Settings.Default.publisherDefault = publisher.Text;
-            Settings.Default.javaPathDefault = javaPathTextBox.Text;
-            Settings.Default.epubCheckPathDefault = EpubCheckPathTextBox.Text;
+            //仮コード
+            var opt = new ConvertOptions();
+            opt.hasTag = false;
+            opt.isSpaceIndented = false;
 
-            Properties.Settings.Default.Save();
+            var novelFile = "";
+            var epubDir = "";
+
+
+
+            //ステータスダイアログを表示する
+            var statusDialog = new StatusDialog();
+            statusDialog.Show();
+            
+            //入力値を確認する
+            statusDialog.status.Text = "入力値を確認しています。";
+            await Task.Run(() => Thread.Sleep(3000));
+
+            //テンプレートを確認する
+            statusDialog.status.Text = "テンプレートを確認しています。";
+            EpubArchiver.CheckEpubDir(epubDir);
+            
+            await Task.Run(() => Thread.Sleep(3000));
+
+            //小説ファイルを変換する
+            statusDialog.status.Text = "小説ファイルを変換しています。";
+            await Task.Run(() => Thread.Sleep(3000));
+
+            //Epubファイルを作成する
+            statusDialog.status.Text = "Epubファイルを作成しています。";
+            await Task.Run(() => Thread.Sleep(3000));
+
+            //EpubCheckを実行する
+            statusDialog.status.Text = "EpubCheckを実行しています。";
+            await Task.Run(() => Thread.Sleep(3000));
+
+            statusDialog.Close();
+
+
+
+            if (false)
+            {
+                //設定を保存する
+                Settings.Default.titleDefault = title.Text;
+                Settings.Default.authorDefault = author.Text;
+                Settings.Default.novelFileDefault = novel.Text;
+                Settings.Default.publisherDefault = publisher.Text;
+                Settings.Default.javaPathDefault = javaPathTextBox.Text;
+                Settings.Default.epubCheckPathDefault = EpubCheckPathTextBox.Text;
+
+                Properties.Settings.Default.Save();
+            }
         }
 
         //EpubCheckを使用するチェックボックスのイベントハンドラ
@@ -69,7 +115,9 @@ namespace Novel2Epub
                 var epubCheckExt = Path.GetExtension(EpubCheckPathTextBox.Text).ToLower();
                 isEnable &= epubCheckExt.Equals(".jar");
             }
+            //for Debug
             GenerateEpub.IsEnabled = isEnable;
+            GenerateEpub.IsEnabled = true;
         }
 
         //ファイルがドラッグされてきたらうける
