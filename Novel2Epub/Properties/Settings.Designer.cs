@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Novel2Epub.Properties {
+namespace SakuraEpubUtility.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -91,6 +91,18 @@ namespace Novel2Epub.Properties {
             }
             set {
                 this["titleIDs"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string coverDefault {
+            get {
+                return ((string)(this["coverDefault"]));
+            }
+            set {
+                this["coverDefault"] = value;
             }
         }
         

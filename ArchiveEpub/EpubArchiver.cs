@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Linq;
 
-namespace ArchiveEpub
+namespace SakuraEpubUtility
 {
     class EpubArchiver
     {
@@ -136,7 +136,7 @@ namespace ArchiveEpub
                     //container.xmlファイルからパッケージ文書を取得する
                     var doc = XElement.Load(container);
                     var rootFileNodes = doc.Descendants().Where(e => e.Name.LocalName == "rootfile");
-                    var rootFilePath = rootFileNodes.First().Attributes("full-path").First().Value;
+                    var rootFilePath = rootFileNodes.Where(e=>e.Attribute("full-path")!=null).First().Value;
 
                     packageDocumentPath = Path.Combine(srdDir, rootFilePath);   //パッケージ文書パスを保存
                     if (File.Exists(packageDocumentPath) != true)   //パッケージ文書が存在するか
@@ -157,6 +157,23 @@ namespace ArchiveEpub
             }
             
             
+        }
+
+
+
+        //パッケージドキュメントのパスを取得する
+        static string GetPackageDocumentPath(string epubPath)
+        {
+            var ret = "";
+
+            var container = epubPath + @"\META-INF\container.xml";    //コンテナファイル
+            //container.xmlファイルからパッケージ文書を取得する
+            var doc = XElement.Load(container);
+            var rootFileNodes = doc.Descendants().Where(e => e.Name.LocalName == "rootfile");
+            var rootFilePath = rootFileNodes.Where(e => e.Attribute("full-path") != null).First().Value;
+            ret = Path.Combine(epubPath, rootFilePath);   //パッケージ文書パスを保存
+
+            return ret;
         }
     }
 }

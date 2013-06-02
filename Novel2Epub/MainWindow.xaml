@@ -1,7 +1,7 @@
-﻿<Window x:Class="Novel2Epub.MainWindow"
+﻿<Window x:Class="SakuraEpubUtility.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="455.97" Width="525">
+        Title="MainWindow" Height="508.209" Width="525">
     <Window.Resources>
         <Style TargetType="TextBox">
             <EventSetter Event="TextChanged" Handler="TextChanged"/>
@@ -11,13 +11,15 @@
     </Window.Resources>
     <StackPanel Orientation="Vertical" Margin="10,0">
         <Label>題名</Label>
-        <TextBox x:Name="title"/>
+        <TextBox Name="title"/>
         <Label>著者</Label>
-        <TextBox x:Name="author"/>
+        <TextBox Name="author"/>
         <Label>発行元</Label>
-        <TextBox x:Name="publisher"/>
-        <Label>小説ファイル(テキストファイルをドロップしてください)</Label>
-        <TextBox x:Name="novel"/>
+        <TextBox Name="publisher"/>
+        <Label>表紙ファイル(画像ファイルをドロップしてください)</Label>
+        <TextBox Name="cover"/>
+        <Label>本文(テキストファイルをドロップしてください)</Label>
+        <TextBox Name="novel"/>
         <GroupBox Header="組み版情報">
             <StackPanel Orientation="Horizontal">
                 <StackPanel Orientation="Vertical">
@@ -43,6 +45,6 @@
                 <TextBox Name="EpubCheckPathTextBox" IsEnabled="{Binding ElementName=useEpubCheck,Path=IsChecked}"/>
             </StackPanel>
         </GroupBox>
-        <Button x:Name="GenerateEpub" HorizontalAlignment="Center" Margin="91,20,91,0" FontSize="20" Click="GenerateEPUB" Content="EPUB3ファイルを生成する"/>
+        <Button Name="GenerateEpub" HorizontalAlignment="Center" Margin="91,20,91,0" FontSize="20" Click="GenerateEPUB" Content="EPUB3ファイルを生成する"/>
     </StackPanel>
 </Window>

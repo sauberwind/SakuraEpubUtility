@@ -7,7 +7,7 @@
     <ProjectGuid>{3B79B7CA-6564-4567-AB8C-77FAEA5B5334}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Novel2Epub</RootNamespace>
+    <RootNamespace>SakuraEpubUtility</RootNamespace>
     <AssemblyName>Novel2Epub</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -34,6 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Web" />
@@ -54,15 +55,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="EpubDocument.cs" />
-    <Compile Include="StatusDialog.xaml.cs">
-      <DependentUpon>StatusDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Text2XhtmlConverter.cs" />
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="..\ArchiveEpub\EpubArchiver.cs">
       <Link>EpubArchiver.cs</Link>
     </Compile>
@@ -72,6 +64,15 @@
     <Compile Include="..\ArchiveEpub\ZipStorer.cs">
       <Link>ZipStorer.cs</Link>
     </Compile>
+    <Compile Include="EpubDocument.cs" />
+    <Compile Include="StatusDialog.xaml.cs">
+      <DependentUpon>StatusDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Text2XhtmlConverter.cs" />
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>

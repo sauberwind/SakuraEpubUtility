@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Web;
 
-namespace Novel2Epub
+namespace SakuraEpubUtility
 {
     public struct ConvertOptions
     {

@@ -1,15 +1,12 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.IO;
-using Novel2Epub.Properties;
+using SakuraEpubUtility.Properties;
 using System.Threading;
 using System.Threading.Tasks;
-using ArchiveEpub;
-namespace Novel2Epub
+using SakuraEpubUtility;
+namespace SakuraEpubUtility
 {
-    /// <summary>
-    /// MainWindow.xaml の相互作用ロジック
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -17,12 +14,15 @@ namespace Novel2Epub
             InitializeComponent();
 
             //テキストボックスに前回値を入れる
-            title.Text = Settings.Default.titleDefault;
-            author.Text = Settings.Default.authorDefault;
-            novel.Text = Settings.Default.novelFileDefault;
-            publisher.Text = Settings.Default.publisherDefault;
-            javaPathTextBox.Text = Settings.Default.javaPathDefault;
-            EpubCheckPathTextBox.Text = Settings.Default.epubCheckPathDefault;
+            title.Text = Settings.Default.titleDefault;                 //タイトル
+            author.Text = Settings.Default.authorDefault;               //著者
+            publisher.Text = Settings.Default.publisherDefault;         //発行元
+
+            cover.Text = Settings.Default.coverDefault;                 //カバー
+            novel.Text = Settings.Default.novelFileDefault;             //本文
+
+            javaPathTextBox.Text = Settings.Default.javaPathDefault;            //java
+            EpubCheckPathTextBox.Text = Settings.Default.epubCheckPathDefault;  //EpubCheck
 
             UpdateGenerateEpubStatus();
         }
@@ -30,28 +30,35 @@ namespace Novel2Epub
         //EPUB生成ボタンが押された
         private async void GenerateEPUB(object sender, RoutedEventArgs e)
         {
+            var btn = sender as Button;     //ボタンをdisableにする
+            btn.IsEnabled = false;
+
             //仮コード
             var opt = new ConvertOptions();
             opt.hasTag = false;
             opt.isSpaceIndented = false;
 
-            var novelFile = "";
-            var epubDir = "";
-
-
 
             //ステータスダイアログを表示する
             var statusDialog = new StatusDialog();
             statusDialog.Show();
+
+            //
+            //EPUBを作成する
+            //
+            var ePubDoc = new EpubDocument();
             
-            //入力値を確認する
-            statusDialog.status.Text = "入力値を確認しています。";
-            await Task.Run(() => Thread.Sleep(3000));
+            //入力データを反映する
+            ePubDoc.title = title.Text;             //タイトル
+            ePubDoc.author = author.Text;           //著者
+            ePubDoc.publiser = publisher.Text;      //本文
+            ePubDoc.coverImagePath = cover.Text;    //表紙画像
 
             //テンプレートを確認する
             statusDialog.status.Text = "テンプレートを確認しています。";
-            EpubArchiver.CheckEpubDir(epubDir);
-            
+
+            //EpubArchiver.CheckEpubDir(epubDir);
+
             await Task.Run(() => Thread.Sleep(3000));
 
             //小説ファイルを変換する
@@ -70,18 +77,19 @@ namespace Novel2Epub
 
 
 
-            if (false)
-            {
-                //設定を保存する
-                Settings.Default.titleDefault = title.Text;
-                Settings.Default.authorDefault = author.Text;
-                Settings.Default.novelFileDefault = novel.Text;
-                Settings.Default.publisherDefault = publisher.Text;
-                Settings.Default.javaPathDefault = javaPathTextBox.Text;
-                Settings.Default.epubCheckPathDefault = EpubCheckPathTextBox.Text;
+            //設定を保存する
+            Settings.Default.titleDefault = title.Text;
+            Settings.Default.authorDefault = author.Text;
+            Settings.Default.publisherDefault = publisher.Text;
 
-                Properties.Settings.Default.Save();
-            }
+            Settings.Default.novelFileDefault = novel.Text;
+            Settings.Default.coverDefault = cover.Text;
+            Settings.Default.javaPathDefault = javaPathTextBox.Text;
+            Settings.Default.epubCheckPathDefault = EpubCheckPathTextBox.Text;
+
+            Properties.Settings.Default.Save();
+
+            btn.IsEnabled = true;   //ボタンをEnableに戻す
         }
 
         //EpubCheckを使用するチェックボックスのイベントハンドラ
@@ -97,6 +105,7 @@ namespace Novel2Epub
             isEnable &= (title.Text.Length > 0);    //タイトルが入力済みか
             isEnable &= (author.Text.Length > 0);   //著者名が入力済みか
             isEnable &= File.Exists(novel.Text);    //小説ファイルが存在するか?
+            isEnable &= File.Exists(cover.Text);    //カバー画像ファイルが存在するか
 
 
             //Epubチェックを使用するなら

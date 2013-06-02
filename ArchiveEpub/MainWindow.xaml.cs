@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.IO;
 
-namespace ArchiveEpub
+namespace SakuraEpubUtility
 {
     /// <summary>
     /// MainWindow.xaml の相互作用ロジック

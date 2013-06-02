@@ -1,4 +1,4 @@
-﻿<Window x:Class="Novel2Epub.StatusDialog"
+﻿<Window x:Class="SakuraEpubUtility.StatusDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Nov2Epub StatusWindow" Height="63" Width="300" HorizontalAlignment="Center">

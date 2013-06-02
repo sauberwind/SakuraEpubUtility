@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ArchiveEpub
+namespace SakuraEpubUtility
 {
     public class EpubCheckWrapper
     {

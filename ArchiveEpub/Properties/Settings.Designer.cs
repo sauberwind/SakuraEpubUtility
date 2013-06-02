@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ArchiveEpub.Properties {
+namespace SakuraEpubUtility.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
