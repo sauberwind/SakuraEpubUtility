@@ -28,14 +28,17 @@ namespace SakuraEpubUtility
         {
             ComvertToTaggedLines();
         }
-        public override void Output()
+
+        //pタグで囲う。<br/ >を追加する
+        void ComvertToTaggedLines()
         {
-            var outString = ""; //bodyタグに書く文字列
-            foreach(var line in lines)
+            var outLines = new List<string>();  //出力行
+            foreach (var line in lines)
             {
-                outString+=line+"\n";
+                var outline = AddPTagtoLine(line);
+                outLines.Add(outline);
             }
-            InsertBody(outString);
+            lines = outLines;
         }
 
     }

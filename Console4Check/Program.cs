@@ -20,7 +20,7 @@ namespace Console4Check
         static void ConvertText2Xhtml()
         {
             var textFile = @"c:\temp\パラレル.txt";
-            var textFormat = TextFormat.PLAIN_TEXT;
+            var textFormat = TextFormat.PLAIN_TEXT_WITH_HEADER;
             var templateFile = @"C:\temp\Text.xhtml";
 
             var opt = new ConvertOptions();

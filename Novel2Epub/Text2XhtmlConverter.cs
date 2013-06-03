@@ -8,29 +8,49 @@ using System.Web;
 
 namespace SakuraEpubUtility
 {
+    //入力となるテキストファイルのフォーマット
     public enum TextFormat
     {
         PLAIN_TEXT,                 //プレーンテキスト
-        PLAIN_TEXT_WITH_HEADER,     //プレーンテキスト+　*によるヘッダ
-        TEXT_WITH_TAG,              //プレーンテキストに<ruby>などのタグがついたもの
+        PLAIN_TEXT_WITH_HEADER,     //プレーンテキストに*によるヘッダ
         XHTML                       //XHTML　なにもせずコピーする
     }
+    //変換オプション
     public struct ConvertOptions
     {
-        public bool hasTag;            //タグが中に記入されていれば、本文内をコンバートしない
+        public bool hasTag;            //タグが中に記入されていれば、本文内の<や&をコンバートしない
         public bool isSpaceIndented;   //空白文字でインデント指定されいている
     }
+
+    //tocに書き込むヘッダの位置
+    public class HeaderAnchor
+    {
+        public HeaderAnchor(int lv, string id, string text)
+        {
+            level = lv;
+            identifier = id;
+            str = text;
+        }
+
+        public int level;             //ヘッダのレベル
+        public string identifier;     //ヘッダのID
+        public string str;         //ヘッダ文字列
+    }
+
     public class TextComveter
     {
-        static public void ConvertText(string srcFile,string templateFile, TextFormat format, ConvertOptions opt)
+        static public void ConvertText(string srcFile, string templateFile, TextFormat format, ConvertOptions opt)
         {
-            var method = new TextComverterMethods(srcFile,templateFile, format, opt);
+            var method = new TextComverterMethods(srcFile, templateFile, format, opt);
 
             //フォーマットによりコンバーターを切替える
             switch (format)
             {
                 case TextFormat.PLAIN_TEXT: //プレーンテキスト
-                    method = new PlainTextConverter(srcFile,templateFile, format, opt);
+                    method = new PlainTextConverter(srcFile, templateFile, format, opt);
+                    break;
+                case TextFormat.PLAIN_TEXT_WITH_HEADER:
+                    method = new HeaderTextConverter(srcFile, templateFile, format, opt);
                     break;
             }
             method.PreProcess();
@@ -42,71 +62,79 @@ namespace SakuraEpubUtility
 
 
 
-    public  class TextComverterMethods
+    public class TextComverterMethods
     {
         protected TextFormat format;
         protected List<string> lines;
         protected ConvertOptions option;
         protected string templateFile;
+        protected List<HeaderAnchor> headerAnchors;
+        
 
         public TextComverterMethods()
         {
         }
 
-        public TextComverterMethods(string srcFile,string templateFile, TextFormat format,ConvertOptions opt)
+        public TextComverterMethods(string srcFile, string templateFile, TextFormat format, ConvertOptions opt)
         {
             this.templateFile = templateFile;
             this.format = format;
             this.option = opt;
             var enc = System.Text.Encoding.GetEncoding("utf-8");
-            lines = File.ReadAllLines(srcFile, enc).ToList();    //全行を取得する
+            headerAnchors = new List<HeaderAnchor>();
+            lines = File.ReadAllLines(srcFile, enc).ToList();       //全行を取得する
         }
 
-        public virtual void PreProcess(){}
-        public virtual void Process(){}
-        public virtual void Output(){}
-
+        public virtual void PreProcess() { }
+        public virtual void Process() { }
+        public virtual void Output()
+        {
+            var outString = ""; //bodyタグに書く文字列
+            foreach (var line in lines)
+            {
+                outString += line + "\n";
+            }
+            InsertBody(outString);
+        }
         //XHTML禁止文字を置き換える
         protected void EscapeInvalidChar()
         {
             var proccessedLines = new List<string>();
             foreach (var line in lines)
             {
-                proccessedLines.Add(HttpUtility.HtmlEncode(line));  //禁止文字を置き換える
+                if (option.hasTag != true)  //タグなしであれば
+                {
+                    proccessedLines.Add(HttpUtility.HtmlEncode(line));  //禁止文字を置き換える
+                }
             }
             lines = proccessedLines;
 
         }
-        //pタグで囲う。<br/ >を追加する
-        protected void ComvertToTaggedLines()
+        //pタグで囲う・
+        protected string AddPTagtoLine(string line)
         {
-            var outLines = new List<string>();  //出力行
-            foreach (var line in lines)
+            var outline = line;       //出力行
+            if (outline.Length == 0)
             {
-                var outline = line;       //出力行
-                if (outline.Length == 0)
-                {
-                    outline = "<br />";
-                }
-                if (option.isSpaceIndented == true) //スペース字下げなら、単純にpタグを追加する
-                {
-                    outline = "<p>" + outline + "</p>";
-                }
-                else //スペース字下げでないなら、会話文とクラス分けを行う
-                {
-                    if (IsTalkLine(line) == true)   //会話文であればクラスをつける
-                    {
-                        outline = @"<p class=""talk"">" + outline;
-                    }
-                    else //地の文であればクラスなし
-                    {
-                        outline = @"<p>" + outline;
-                    }
-                }
-                outline += @"</p>";
-                outLines.Add(outline);
+                outline = "<br />";
             }
-            lines = outLines;
+            if (option.isSpaceIndented == true) //スペース字下げなら、単純にpタグを追加する
+            {
+                outline = "<p>" + outline + "</p>";
+            }
+            else //スペース字下げでないなら、会話文とクラス分けを行う
+            {
+                if (IsTalkLine(line) == true)   //会話文であればクラスをつける
+                {
+                    outline = @"<p class=""talk"">" + outline;
+                }
+                else //地の文であればクラスなし
+                {
+                    outline = @"<p>" + outline;
+                }
+            }
+            outline += @"</p>";
+            return (outline);
         }
         //本文を挿入して書き込む
         protected void InsertBody(string bodyString)
