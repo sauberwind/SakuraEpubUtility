@@ -47,7 +47,7 @@ namespace SakuraEpubUtility
 
             //出版
             var publisherNode = doc.Descendants().Where(e => e.Name.LocalName == "publisher").First();
-            publisherNode.Value = ePubDat.publiser;
+            publisherNode.Value = ePubDat.publisher;
 
             //ID identifier
             var idNode = doc.Descendants().Where(e => e.Name.LocalName == "identifier").First();
@@ -63,6 +63,17 @@ namespace SakuraEpubUtility
                     idNode.Value=guid;                                  //identifierに記載する
                     EpubDocument.identifiers.Add(ePubDat.title, guid);  //辞書に追加する
                 }
+            }
+
+            //ページ送り方向を書き込む
+            var spinNode = doc.Descendants().Where(e => e.Name.LocalName == "spine").First();
+            if (ePubDat.isRightToLeft == true) //右から左なら
+            {
+                spinNode.SetAttributeValue("page-progression-direction", "rtl");
+            }
+            else    //左から右なら
+            {
+                spinNode.SetAttributeValue("page-progression-direction", "ltr");
             }
             doc.Save(packFile); //一旦書き込む
             UpdatePackageDocument(packFile);    //日付を更新する

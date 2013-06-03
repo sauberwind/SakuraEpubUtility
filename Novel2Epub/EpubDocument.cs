@@ -13,7 +13,8 @@ namespace SakuraEpubUtility
     {
         public string title;            //タイトル
         public string author;           //作者
-        public string publiser;         //出版社
+        public string publisher;        //出版社
+        public bool isRightToLeft;      //ページ送り(右→左か?=縦書きか?)
     }
 
     public class EpubDocument
@@ -68,7 +69,7 @@ namespace SakuraEpubUtility
             var epubDat = new EpubMetaData();
             epubDat.title = title;
             epubDat.author = author;
-            epubDat.publiser = publiser;
+            epubDat.publisher = publiser;
 
         }
 

@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchiveEpub", "ArchiveEpub\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Novel2Epub", "Novel2Epub\Novel2Epub.csproj", "{3B79B7CA-6564-4567-AB8C-77FAEA5B5334}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console4Check", "Console4Check\Console4Check.csproj", "{AE541CF8-4590-41BE-A8D6-8D3E0CBF8792}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{3B79B7CA-6564-4567-AB8C-77FAEA5B5334}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B79B7CA-6564-4567-AB8C-77FAEA5B5334}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B79B7CA-6564-4567-AB8C-77FAEA5B5334}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE541CF8-4590-41BE-A8D6-8D3E0CBF8792}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE541CF8-4590-41BE-A8D6-8D3E0CBF8792}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE541CF8-4590-41BE-A8D6-8D3E0CBF8792}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE541CF8-4590-41BE-A8D6-8D3E0CBF8792}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

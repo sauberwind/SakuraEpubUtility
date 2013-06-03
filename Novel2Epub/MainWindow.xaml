@@ -22,16 +22,27 @@
         <TextBox Name="novel"/>
         <GroupBox Header="組み版情報">
             <StackPanel Orientation="Horizontal">
+                <GroupBox Header="縦組み/横組み">
                 <StackPanel Orientation="Vertical">
-                    <Label>縦組み/横組み</Label>
                     <RadioButton GroupName="Orientation" Margin="10,0,0,0">縦組</RadioButton>
                     <RadioButton GroupName="Orientation" Margin="10,0,0,0" IsChecked="True">横組</RadioButton>
                 </StackPanel>
+                </GroupBox>
+                <GroupBox Header="インデント">
                 <StackPanel Orientation="Vertical">
-                    <Label>インデント</Label>
                     <RadioButton GroupName="Indent" Margin="10,0,0,0">全角空白</RadioButton>
-                    <RadioButton GroupName="Indent" Margin="10,0,0,0" IsChecked="True">指定なし</RadioButton>
+                    <RadioButton GroupName="Indent" Margin="10,0,0,0" IsChecked="True">自動判定</RadioButton>
                 </StackPanel>
+                </GroupBox>
+                <GroupBox Header="ファイルフォーマット">
+                    <StackPanel Orientation="Vertical">
+                        <RadioButton GroupName="FileFormat" Margin="10,0,0,0" IsChecked="True">プレーンテキスト</RadioButton>
+                        <RadioButton GroupName="FileFormat" Margin="10,0,0,0">プレーンテキスト(見出し指定あり)</RadioButton>
+                        <RadioButton GroupName="FileFormat" Margin="10,0,0,0">タグ付きテキスト</RadioButton>
+                        <RadioButton GroupName="FileFormat" Margin="10,0,0,0">XHTML</RadioButton>
+                    </StackPanel>
+                </GroupBox>
+
             </StackPanel>
         </GroupBox>
         <GroupBox Margin="10">
