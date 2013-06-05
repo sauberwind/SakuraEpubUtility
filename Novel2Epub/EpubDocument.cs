@@ -7,6 +7,7 @@ using System.IO;
 using SakuraEpubUtility;
 using Microsoft.VisualBasic.FileIO;
 using System.Collections.Specialized;
+using System.Security.AccessControl;
 namespace SakuraEpubUtility
 {
     public struct EpubMetaData
@@ -15,13 +16,13 @@ namespace SakuraEpubUtility
         public string author;           //作者
         public string publisher;        //出版社
         public bool isRightToLeft;      //ページ送り(右→左か?=縦書きか?)
+        public bool isVertical;         //縦書きか？
     }
 
     public class EpubDocument
     {
-        public string title{set;get;}               //タイトル
-        public string author{set;get;}              //作者
-        public string publiser { set; get; }        //出版社
+        public EpubMetaData metaData { set; get; }
+
         public string novelPath { set; get; }       //小説本文のパス
         public string coverImagePath { set; get; }  //表紙画像のパス
 
@@ -44,7 +45,7 @@ namespace SakuraEpubUtility
         }
 
         //テンプレートファイルをチェックする
-        public void CheckEpubTemplate()
+        static public void CheckEpubTemplate()
         {
             var templateDir = GetTemplateDirectory();
             
@@ -52,7 +53,7 @@ namespace SakuraEpubUtility
             {
                 throw new Exception("テンプレートディレクトリがありません");
             }
-            //EPUBに最低限必要なファイルがあるか確認する異常時は例外が投げられる
+            //EPUBに最低限必要なファイルがあるか確認する　異常時は例外が投げられる
             EpubArchiver.CheckEpubDir(templateDir);
         }
 
@@ -60,26 +61,63 @@ namespace SakuraEpubUtility
         public void GenerateEpubDocument()
         {
             //テンプレートファイルをテンポラリディレクトリにコピーする
-            var templateDir = GetTemplateDirectory();   //テンプレートディレクトリ
+            var templateDir = GetTemplateDirectory();       //テンプレートディレクトリ
             var tempDir = Path.GetTempPath();                //テンポラリディレクトリ
             var epubDirName = Path.Combine(tempDir,Path.GetFileNameWithoutExtension(Path.GetRandomFileName()));  //ランダム
-            FileSystem.CopyDirectory(templateDir, epubDirName);     //コピーする
+            CopyDirectory(templateDir, epubDirName);     //コピーする
 
             //パッケージドキュメントを更新する
-            var epubDat = new EpubMetaData();
-            epubDat.title = title;
-            epubDat.author = author;
-            epubDat.publisher = publiser;
+            var packFile = EpubArchiver.GetPackageDocumentPath(epubDirName);    //パッケージドキュメントのファイル名を取得
+            PackageDocument.WriteMetaData(packFile, metaData);
+
+
 
         }
 
         //テンプレートのディレクトリを取得する
-        string GetTemplateDirectory()
+        static string GetTemplateDirectory()
         {
             var exeDir = System.Reflection.Assembly.GetExecutingAssembly().Location;    //exeのあるディレクトリ
             var templateDir = Path.Combine(Path.GetDirectoryName(exeDir), TEMPLATE);
 
             return (templateDir);
         }
+        public static void CopyDirectory(string sourceDirName, string destDirName)
+        {
+            FileSystemAccessRule rule = new FileSystemAccessRule(
+                                            "Everyone",
+                                            FileSystemRights.FullControl,
+                                            InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit,
+                                            PropagationFlags.None,
+                                            AccessControlType.Allow);
+
+            var dirSec = new DirectorySecurity();
+            dirSec.AddAccessRule(rule);
+
+
+            //コピー先のディレクトリがないときは作る
+            if (!System.IO.Directory.Exists(destDirName))
+            {
+                System.IO.Directory.CreateDirectory(destDirName,dirSec);
+            }
+
+            //コピー先のディレクトリ名の末尾に"\"をつける
+            if (destDirName[destDirName.Length - 1] !=
+                    System.IO.Path.DirectorySeparatorChar)
+                destDirName = destDirName + System.IO.Path.DirectorySeparatorChar;
+
+            //コピー元のディレクトリにあるファイルをコピー
+            string[] files = System.IO.Directory.GetFiles(sourceDirName);
+            foreach (string file in files)
+                System.IO.File.Copy(file,
+                    destDirName + System.IO.Path.GetFileName(file), true);
+
+            //コピー元のディレクトリにあるディレクトリについて、
+            //再帰的に呼び出す
+            string[] dirs = System.IO.Directory.GetDirectories(sourceDirName);
+            foreach (string dir in dirs)
+                CopyDirectory(dir, destDirName + System.IO.Path.GetFileName(dir));
+        }
+
     }
 }

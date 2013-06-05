@@ -5,6 +5,7 @@ using SakuraEpubUtility.Properties;
 using System.Threading;
 using System.Threading.Tasks;
 using SakuraEpubUtility;
+using System;
 namespace SakuraEpubUtility
 {
     public partial class MainWindow : Window
@@ -13,7 +14,16 @@ namespace SakuraEpubUtility
         {
             InitializeComponent();
 
-            //テキストボックスに前回値を入れる
+            //テキストボックスに前回起動時の値を読み込む
+            LoadDefaults();
+
+            UpdateGenerateEpubStatus();
+        }
+
+        //テキストボックスに前回起動時の値を入れる
+        private void LoadDefaults()
+        {
+
             title.Text = Settings.Default.titleDefault;                 //タイトル
             author.Text = Settings.Default.authorDefault;               //著者
             publisher.Text = Settings.Default.publisherDefault;         //発行元
@@ -23,8 +33,6 @@ namespace SakuraEpubUtility
 
             javaPathTextBox.Text = Settings.Default.javaPathDefault;            //java
             EpubCheckPathTextBox.Text = Settings.Default.epubCheckPathDefault;  //EpubCheck
-
-            UpdateGenerateEpubStatus();
         }
 
         //EPUB生成ボタンが押された
@@ -32,52 +40,86 @@ namespace SakuraEpubUtility
         {
             var btn = sender as Button;     //ボタンをdisableにする
             btn.IsEnabled = false;
+            try
+            {
+                //
+                //EPUBを作成する
+                //
 
-            //仮コード
-            var opt = new ConvertOptions();
-            opt.hasTag = false;
-            opt.isSpaceIndented = false;
+                //テンプレートを確認する
+                btn.Content = "テンプレートを確認しています。";
+                await Task.Run(() => EpubDocument.CheckEpubTemplate());
+
+                //メタデータを取得する
+                var ePubDoc = new EpubDocument();
+                var metaData = new EpubMetaData();
+                metaData.title = title.Text;                            //タイトル
+                metaData.author = author.Text;                          //著者
+                metaData.publisher = publisher.Text;                    //出版社
+                metaData.isRightToLeft = (bool)isVertical.IsChecked;    //縦書きであれば右→左
+                metaData.isVertical = (bool)isVertical.IsChecked;       //縦書きか？
+                ePubDoc.metaData = metaData;
+                
+                //ファイル情報を取得する
+                ePubDoc.coverImagePath = cover.Text;    //表紙画像
+                ePubDoc.novelPath = novel.Text;         //本文
+
+                //テキストフォーマットを取得する
+                var opt = new ConvertOptions();
+                opt.hasTag = (bool)hasTag.IsChecked;                    //修飾タグの有無
+                opt.isSpaceIndented = (bool)isSpaceIndented.IsChecked;  //インデントがスペースか？
+
+                if (isPlaneText.IsChecked == true)                      //プレーンテキスト
+                {
+                    opt.format = TextFormat.PLAIN_TEXT;
+                }
+                else if (isHeaddedText.IsChecked == true)               //*でヘッダを示すテキスト
+                {
+                    opt.format = TextFormat.PLAIN_TEXT_WITH_HEADER;
+                }
+                else                                                    //XHTML
+                {
+                    opt.format = TextFormat.XHTML;
+                }
+                //生成処理実行
+                btn.Content = "EPUBを作成しています";
+                await Task.Run(() => ePubDoc.GenerateEpubDocument());
 
 
-            //ステータスダイアログを表示する
-            var statusDialog = new StatusDialog();
-            statusDialog.Show();
+                await Task.Run(() => Thread.Sleep(3000));
 
-            //
-            //EPUBを作成する
-            //
-            var ePubDoc = new EpubDocument();
-            
-            //入力データを反映する
-            ePubDoc.title = title.Text;             //タイトル
-            ePubDoc.author = author.Text;           //著者
-            ePubDoc.publiser = publisher.Text;      //本文
-            ePubDoc.coverImagePath = cover.Text;    //表紙画像
+                //小説ファイルを変換する
 
-            //テンプレートを確認する
-            statusDialog.status.Text = "テンプレートを確認しています。";
+                await Task.Run(() => Thread.Sleep(3000));
 
-            //EpubArchiver.CheckEpubDir(epubDir);
+                //Epubファイルを作成する
 
-            await Task.Run(() => Thread.Sleep(3000));
+                await Task.Run(() => Thread.Sleep(3000));
 
-            //小説ファイルを変換する
-            statusDialog.status.Text = "小説ファイルを変換しています。";
-            await Task.Run(() => Thread.Sleep(3000));
+                //EpubCheckを実行する
 
-            //Epubファイルを作成する
-            statusDialog.status.Text = "Epubファイルを作成しています。";
-            await Task.Run(() => Thread.Sleep(3000));
-
-            //EpubCheckを実行する
-            statusDialog.status.Text = "EpubCheckを実行しています。";
-            await Task.Run(() => Thread.Sleep(3000));
-
-            statusDialog.Close();
+                await Task.Run(() => Thread.Sleep(3000));
 
 
 
-            //設定を保存する
+
+
+                //設定を保存する
+                SaveDefaults();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            btn.IsEnabled = true;   //ボタンをEnableに戻す
+            btn.Content = "EPUB3ファイルを生成する";
+        }
+
+        //テキストボックスの値をセーブする
+        private void SaveDefaults()
+        {
             Settings.Default.titleDefault = title.Text;
             Settings.Default.authorDefault = author.Text;
             Settings.Default.publisherDefault = publisher.Text;
@@ -88,8 +130,6 @@ namespace SakuraEpubUtility
             Settings.Default.epubCheckPathDefault = EpubCheckPathTextBox.Text;
 
             Properties.Settings.Default.Save();
-
-            btn.IsEnabled = true;   //ボタンをEnableに戻す
         }
 
         //EpubCheckを使用するチェックボックスのイベントハンドラ
@@ -124,9 +164,12 @@ namespace SakuraEpubUtility
                 var epubCheckExt = Path.GetExtension(EpubCheckPathTextBox.Text).ToLower();
                 isEnable &= epubCheckExt.Equals(".jar");
             }
-            //for Debug
             GenerateEpub.IsEnabled = isEnable;
-            GenerateEpub.IsEnabled = true;
+            if (isEnable == true)   //入力値がValidであればsaveする
+            {
+                SaveDefaults();
+            }
+
         }
 
         //ファイルがドラッグされてきたらうける

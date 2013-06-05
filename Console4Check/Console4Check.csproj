@@ -63,6 +63,9 @@
     <Compile Include="..\Novel2Epub\HeaderTextConverter.cs">
       <Link>HeaderTextConverter.cs</Link>
     </Compile>
+    <Compile Include="..\Novel2Epub\NavigationDocument.cs">
+      <Link>NavigationDocument.cs</Link>
+    </Compile>
     <Compile Include="..\Novel2Epub\PlainTextConverter.cs">
       <Link>PlainTextConverter.cs</Link>
     </Compile>

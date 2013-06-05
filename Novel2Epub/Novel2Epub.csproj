@@ -66,6 +66,7 @@
     </Compile>
     <Compile Include="EpubDocument.cs" />
     <Compile Include="HeaderTextConverter.cs" />
+    <Compile Include="NavigationDocument.cs" />
     <Compile Include="PlainTextConverter.cs" />
     <Compile Include="StatusDialog.xaml.cs">
       <DependentUpon>StatusDialog.xaml</DependentUpon>

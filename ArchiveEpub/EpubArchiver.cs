@@ -135,8 +135,9 @@ namespace SakuraEpubUtility
                 {
                     //container.xmlファイルからパッケージ文書を取得する
                     var doc = XElement.Load(container);
-                    var rootFileNodes = doc.Descendants().Where(e => e.Name.LocalName == "rootfile");
-                    var rootFilePath = rootFileNodes.Where(e=>e.Attribute("full-path")!=null).First().Value;
+                    var rootFileNodes = doc.Descendants().Where(e => e.Name.LocalName == "rootfile");   //rootfileタグ
+                    var rootNode = rootFileNodes.Where(e=>e.Attribute("full-path")!=null).First();      //パスが入っているrootfileタグ
+                    var rootFilePath = rootNode.Attribute("full-path").Value;                           //パスを取得する
 
                     packageDocumentPath = Path.Combine(srdDir, rootFilePath);   //パッケージ文書パスを保存
                     if (File.Exists(packageDocumentPath) != true)   //パッケージ文書が存在するか
@@ -151,7 +152,7 @@ namespace SakuraEpubUtility
                 var error = "";
                 foreach (var mes in errorMes)
                 {
-                    error += mes+@"\n";
+                    error += mes+"\n";
                 }
                 throw new Exception(error);
             }
@@ -162,7 +163,7 @@ namespace SakuraEpubUtility
 
 
         //パッケージドキュメントのパスを取得する
-        static string GetPackageDocumentPath(string epubPath)
+        public static string GetPackageDocumentPath(string epubPath)
         {
             var ret = "";
 

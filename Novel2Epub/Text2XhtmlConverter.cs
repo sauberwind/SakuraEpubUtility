@@ -20,37 +20,25 @@ namespace SakuraEpubUtility
     {
         public bool hasTag;            //タグが中に記入されていれば、本文内の<や&をコンバートしない
         public bool isSpaceIndented;   //空白文字でインデント指定されいている
+        public TextFormat format;
     }
 
-    //tocに書き込むヘッダの位置
-    public class HeaderAnchor
-    {
-        public HeaderAnchor(int lv, string id, string text)
-        {
-            level = lv;
-            identifier = id;
-            str = text;
-        }
 
-        public int level;             //ヘッダのレベル
-        public string identifier;     //ヘッダのID
-        public string str;         //ヘッダ文字列
-    }
 
     public class TextComveter
     {
-        static public void ConvertText(string srcFile, string templateFile, TextFormat format, ConvertOptions opt)
+        static public void ConvertText(string srcFile, string templateFile, ConvertOptions opt)
         {
-            var method = new TextComverterMethods(srcFile, templateFile, format, opt);
+            var method = new TextComverterMethods(srcFile, templateFile, opt);
 
             //フォーマットによりコンバーターを切替える
-            switch (format)
+            switch (opt.format)
             {
                 case TextFormat.PLAIN_TEXT: //プレーンテキスト
-                    method = new PlainTextConverter(srcFile, templateFile, format, opt);
+                    method = new PlainTextConverter(srcFile, templateFile, opt);
                     break;
                 case TextFormat.PLAIN_TEXT_WITH_HEADER:
-                    method = new HeaderTextConverter(srcFile, templateFile, format, opt);
+                    method = new HeaderTextConverter(srcFile, templateFile, opt);
                     break;
             }
             method.PreProcess();
@@ -64,7 +52,7 @@ namespace SakuraEpubUtility
 
     public class TextComverterMethods
     {
-        protected TextFormat format;
+
         protected List<string> lines;
         protected ConvertOptions option;
         protected string templateFile;
@@ -75,10 +63,9 @@ namespace SakuraEpubUtility
         {
         }
 
-        public TextComverterMethods(string srcFile, string templateFile, TextFormat format, ConvertOptions opt)
+        public TextComverterMethods(string srcFile, string templateFile, ConvertOptions opt)
         {
             this.templateFile = templateFile;
-            this.format = format;
             this.option = opt;
             var enc = System.Text.Encoding.GetEncoding("utf-8");
             headerAnchors = new List<HeaderAnchor>();

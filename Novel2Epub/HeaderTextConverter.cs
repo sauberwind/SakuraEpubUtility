@@ -8,8 +8,8 @@ namespace SakuraEpubUtility
 {
     class HeaderTextConverter : TextComverterMethods
     {
-        public HeaderTextConverter(string srcFile, string templateFile, TextFormat format, ConvertOptions opt)
-            : base(srcFile, templateFile, format, opt)
+        public HeaderTextConverter(string srcFile, string templateFile, ConvertOptions opt)
+            : base(srcFile, templateFile, opt)
         {
         }
 
