@@ -1,33 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using System.Web;
-
 namespace SakuraEpubUtility
 {
-    //入力となるテキストファイルのフォーマット
-    public enum TextFormat
+    public class TextConverter
     {
-        PLAIN_TEXT,                 //プレーンテキスト
-        PLAIN_TEXT_WITH_HEADER,     //プレーンテキストに*によるヘッダ
-        XHTML                       //XHTML　なにもせずコピーする
-    }
-    //変換オプション
-    public struct ConvertOptions
-    {
-        public bool hasTag;            //タグが中に記入されていれば、本文内の<や&をコンバートしない
-        public bool isSpaceIndented;   //空白文字でインデント指定されいている
-        public TextFormat format;
-    }
-
-
-
-    public class TextComveter
-    {
-        static public void ConvertText(string srcFile, string templateFile, ConvertOptions opt)
+        public static void ConvertText(string srcFile, string templateFile, ConvertOptions opt)
         {
             var method = new TextComverterMethods(srcFile, templateFile, opt);
 
@@ -47,9 +26,6 @@ namespace SakuraEpubUtility
         }
     }
 
-
-
-
     public class TextComverterMethods
     {
 
@@ -57,7 +33,7 @@ namespace SakuraEpubUtility
         protected ConvertOptions option;
         protected string templateFile;
         protected List<HeaderAnchor> headerAnchors;
-        
+
 
         public TextComverterMethods()
         {
@@ -152,7 +128,4 @@ namespace SakuraEpubUtility
 
 
     }
-
-
-
 }

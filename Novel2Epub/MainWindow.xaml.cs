@@ -81,27 +81,11 @@ namespace SakuraEpubUtility
                 {
                     opt.format = TextFormat.XHTML;
                 }
+                ePubDoc.opt = opt;
+
                 //生成処理実行
                 btn.Content = "EPUBを作成しています";
                 await Task.Run(() => ePubDoc.GenerateEpubDocument());
-
-
-                await Task.Run(() => Thread.Sleep(3000));
-
-                //小説ファイルを変換する
-
-                await Task.Run(() => Thread.Sleep(3000));
-
-                //Epubファイルを作成する
-
-                await Task.Run(() => Thread.Sleep(3000));
-
-                //EpubCheckを実行する
-
-                await Task.Run(() => Thread.Sleep(3000));
-
-
-
 
 
                 //設定を保存する

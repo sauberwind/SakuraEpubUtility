@@ -10,6 +10,20 @@ using System.Collections.Specialized;
 using System.Security.AccessControl;
 namespace SakuraEpubUtility
 {
+    //変換オプション
+    public class ConvertOptions
+    {
+        public bool hasTag;            //タグが中に記入されていれば、本文内の<や&をコンバートしない
+        public bool isSpaceIndented;   //空白文字でインデント指定されいている
+        public TextFormat format;
+    }
+    //入力となるテキストファイルのフォーマット
+    public enum TextFormat
+    {
+        PLAIN_TEXT,                 //プレーンテキスト
+        PLAIN_TEXT_WITH_HEADER,     //プレーンテキストに*によるヘッダ
+        XHTML                       //XHTML　なにもせずコピーする
+    }
     public struct EpubMetaData
     {
         public string title;            //タイトル
@@ -22,7 +36,7 @@ namespace SakuraEpubUtility
     public class EpubDocument
     {
         public EpubMetaData metaData { set; get; }
-
+        public ConvertOptions opt { set; get; }
         public string novelPath { set; get; }       //小説本文のパス
         public string coverImagePath { set; get; }  //表紙画像のパス
 
@@ -70,6 +84,13 @@ namespace SakuraEpubUtility
             var packFile = EpubArchiver.GetPackageDocumentPath(epubDirName);    //パッケージドキュメントのファイル名を取得
             PackageDocument.WriteMetaData(packFile, metaData);
 
+            //テキストを更新する
+            var textTemplateFile = Path.Combine(epubDirName, @"\OEBPS\Text", "Text.xhtml");
+
+
+            //ナビゲーションドキュメントを作成する
+
+            //圧縮する
 
 
         }

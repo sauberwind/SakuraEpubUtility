@@ -42,15 +42,15 @@ namespace Console4Check
 
         static void ConvertText2Xhtml()
         {
-            var textFile = @"c:\temp\パラレル.txt";
+            //var textFile = @"c:\temp\パラレル.txt";
 
-            var templateFile = @"C:\temp\Text.xhtml";
+            //var templateFile = @"C:\temp\Text.xhtml";
 
-            var opt = new ConvertOptions();
-            opt.hasTag = false;
-            opt.isSpaceIndented = false;
+            //var opt = new ConvertOptions();
+            //opt.hasTag = false;
+            //opt.isSpaceIndented = false;
 
-            TextComveter.ConvertText(textFile, templateFile, opt);
+            //TextConveter.ConvertText(textFile, templateFile, opt);
         }
 
         static void OverWriteOpf()

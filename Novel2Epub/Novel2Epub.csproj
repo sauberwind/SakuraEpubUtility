@@ -71,7 +71,7 @@
     <Compile Include="StatusDialog.xaml.cs">
       <DependentUpon>StatusDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Text2XhtmlConverter.cs" />
+    <Compile Include="TextConveter.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

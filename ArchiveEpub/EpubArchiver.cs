@@ -109,23 +109,23 @@ namespace SakuraEpubUtility
         }
 
         //EPUBを作成するのに必要なファイルが存在しているか確認する
-        public static void CheckEpubDir(string srdDir)
+        public static void CheckEpubDir(string srcDir)
         {
             var errorMes = new List<string>();
 
             //srcDirの直下にmimetypeファイルが存在するか
-            if (File.Exists(srdDir + @"\mimetype") != true)
+            if (File.Exists(srcDir + @"\mimetype") != true)
             {
                 errorMes.Add("mimetypeファイルが存在しません。");
             }
             //srcDirの直下にMETA-INFディレクトリが存在するか
-            if (Directory.Exists(srdDir + @"\META-INF") != true)
+            if (Directory.Exists(srcDir + @"\META-INF") != true)
             {
                 errorMes.Add("META-INFディレクトリが存在しません");
             }
             else //META-INFディレクトリが存在した
             {
-                var container = srdDir + @"\META-INF\container.xml";
+                var container = srcDir + @"\META-INF\container.xml";
                 //container.xmlファイルが存在するか
                 if (File.Exists(container) != true)
                 {
@@ -134,12 +134,7 @@ namespace SakuraEpubUtility
                 else
                 {
                     //container.xmlファイルからパッケージ文書を取得する
-                    var doc = XElement.Load(container);
-                    var rootFileNodes = doc.Descendants().Where(e => e.Name.LocalName == "rootfile");   //rootfileタグ
-                    var rootNode = rootFileNodes.Where(e=>e.Attribute("full-path")!=null).First();      //パスが入っているrootfileタグ
-                    var rootFilePath = rootNode.Attribute("full-path").Value;                           //パスを取得する
-
-                    packageDocumentPath = Path.Combine(srdDir, rootFilePath);   //パッケージ文書パスを保存
+                    packageDocumentPath = GetPackageDocumentPath(srcDir);
                     if (File.Exists(packageDocumentPath) != true)   //パッケージ文書が存在するか
                     {
                         errorMes.Add("パッケージ文書が存在しません");
@@ -156,12 +151,7 @@ namespace SakuraEpubUtility
                 }
                 throw new Exception(error);
             }
-            
-            
         }
-
-
-
         //パッケージドキュメントのパスを取得する
         public static string GetPackageDocumentPath(string epubPath)
         {
@@ -170,8 +160,10 @@ namespace SakuraEpubUtility
             var container = epubPath + @"\META-INF\container.xml";    //コンテナファイル
             //container.xmlファイルからパッケージ文書を取得する
             var doc = XElement.Load(container);
-            var rootFileNodes = doc.Descendants().Where(e => e.Name.LocalName == "rootfile");
-            var rootFilePath = rootFileNodes.Where(e => e.Attribute("full-path") != null).First().Value;
+            var rootFileNodes = doc.Descendants().Where(e => e.Name.LocalName == "rootfile");   //rootfileタグ
+            var rootNode = rootFileNodes.Where(e => e.Attribute("full-path") != null).First();      //パスが入っているrootfileタグ
+            var rootFilePath = rootNode.Attribute("full-path").Value;                           //パスを取得する
+
             ret = Path.Combine(epubPath, rootFilePath);   //パッケージ文書パスを保存
 
             return ret;
