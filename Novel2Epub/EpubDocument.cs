@@ -43,7 +43,7 @@ namespace SakuraEpubUtility
         }
 
         //テンプレートからEpubファイルを作成する
-        public Task<bool> GenerateEpubDocument()
+        public bool GenerateEpubDocument()
         {
             //identifierを読み込む
             IdentifierDictionary.LoadIdnentiersDictionary();

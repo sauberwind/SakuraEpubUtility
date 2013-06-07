@@ -83,7 +83,7 @@ namespace SakuraEpubUtility
 
                 //生成処理実行
                 btn.Content = "EPUBを作成しています";
-                var epubGenerated = await ePubDoc.GenerateEpubDocument();
+                var epubGenerated = ePubDoc.GenerateEpubDocument();
 
                 if((epubGenerated==true)                //EPUBが生成されて
                     && (useEpubCheck.IsChecked==true))  //EpubCheckありなら
