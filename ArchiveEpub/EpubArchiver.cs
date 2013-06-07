@@ -6,6 +6,7 @@ using System.IO.Compression;
 using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Linq;
+using System.Threading.Tasks;
 
 namespace SakuraEpubUtility
 {
@@ -14,7 +15,7 @@ namespace SakuraEpubUtility
         static string packageDocumentPath;
 
         //EPUBファイルをアーカイブする。成功すればtrueが返る
-        public static bool ArchiveEpub(string srcDirName, string dstFileName)
+        async public static Task ArchiveEpub(string srcDirName, string dstFileName)
         {
             packageDocumentPath = null;
 
@@ -27,7 +28,6 @@ namespace SakuraEpubUtility
             //Epubを作成する
             PackEpub(srcDirName, dstFileName);
 
-            return true;
         }
 
         private static void PackEpub(string srcDirName, string dstFileName)

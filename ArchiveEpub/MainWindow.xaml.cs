@@ -85,7 +85,7 @@ namespace SakuraEpubUtility
             UpdateGenerateEpubStatus();
         }
 
-        private void GenerateEpub_Click(object sender, RoutedEventArgs e)
+        async private void GenerateEpub_Click(object sender, RoutedEventArgs e)
         {
             GenerateEpub.IsEnabled = false; //ボタンを押せなくする
 
@@ -116,9 +116,8 @@ namespace SakuraEpubUtility
             }
 
 
-            var ret = EpubArchiver.ArchiveEpub(srcDir, dstFile);
-            if ((ret == true)                       //アーカイブに成功していたら
-                && (useEpubCheck.IsChecked == true))   //EpubCheckありなら
+            await EpubArchiver.ArchiveEpub(srcDir, dstFile);
+            if (useEpubCheck.IsChecked == true)   //EpubCheckありなら
             {
                 var epubChecker = new EpubCheckWrapper(javaPathTextBox.Text, EpubCheckPathTextBox.Text, dstFile);
                 epubChecker.CheckEpub();

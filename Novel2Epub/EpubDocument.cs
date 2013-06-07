@@ -1,8 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Windows;
-using System.Windows.Controls;
-using System.Threading;
 using System.Threading.Tasks;
 namespace SakuraEpubUtility
 {
@@ -28,7 +26,6 @@ namespace SakuraEpubUtility
         public string novelFileName { set; get; }       //小説本文のパス
         public string coverImagePath { set; get; }  //表紙画像のパス
 
-
         //テンプレートファイルをチェックする
         static public void CheckEpubTemplate()
         {
@@ -43,7 +40,7 @@ namespace SakuraEpubUtility
         }
 
         //テンプレートからEpubファイルを作成する
-        public bool GenerateEpubDocument()
+        async public Task<bool> GenerateEpubDocument()
         {
             //identifierを読み込む
             IdentifierDictionary.LoadIdnentiersDictionary();
@@ -92,7 +89,7 @@ namespace SakuraEpubUtility
                     return false;
                 }
             }
-            EpubArchiver.ArchiveEpub(epubDirName, epubFileName);
+            await EpubArchiver.ArchiveEpub(epubDirName, epubFileName);
            
             //Identifierを更新する
             IdentifierDictionary.SaveIdentifierDictionary();

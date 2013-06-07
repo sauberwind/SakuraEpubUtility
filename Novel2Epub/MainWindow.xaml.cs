@@ -1,9 +1,9 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using System.IO;
-using SakuraEpubUtility.Properties;
-using System.Threading.Tasks;
+﻿using SakuraEpubUtility.Properties;
 using System;
+using System.IO;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 namespace SakuraEpubUtility
 {
     public partial class MainWindow : Window
@@ -83,10 +83,9 @@ namespace SakuraEpubUtility
 
                 //生成処理実行
                 btn.Content = "EPUBを作成しています";
-                var epubGenerated = ePubDoc.GenerateEpubDocument();
+                await ePubDoc.GenerateEpubDocument();
 
-                if((epubGenerated==true)                //EPUBが生成されて
-                    && (useEpubCheck.IsChecked==true))  //EpubCheckありなら
+                if(useEpubCheck.IsChecked==true)  //EpubCheckありなら
                 {
                     btn.Content = "EpubCheckを実施しています";
                     var epubFileName = ePubDoc.GetEpubFileName();
