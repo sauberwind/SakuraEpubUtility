@@ -58,6 +58,15 @@
     <Compile Include="..\ArchiveEpub\EpubArchiver.cs">
       <Link>EpubArchiver.cs</Link>
     </Compile>
+    <Compile Include="..\ArchiveEpub\EpubCheck\EpubCheckingDialog.xaml.cs">
+      <Link>EpubCheck\EpubCheckingDialog.xaml.cs</Link>
+    </Compile>
+    <Compile Include="..\ArchiveEpub\EpubCheck\EpubCheckResultDialog.xaml.cs">
+      <Link>EpubCheck\EpubCheckResultDialog.xaml.cs</Link>
+    </Compile>
+    <Compile Include="..\ArchiveEpub\EpubCheck\EpubCheckWrapper.cs">
+      <Link>EpubCheck\EpubCheckWrapper.cs</Link>
+    </Compile>
     <Compile Include="..\ArchiveEpub\PackageDocument.cs">
       <Link>PackageDocument.cs</Link>
     </Compile>
@@ -65,13 +74,26 @@
       <Link>ZipStorer.cs</Link>
     </Compile>
     <Compile Include="EpubDocument.cs" />
+    <Compile Include="EpubMetaData.cs" />
     <Compile Include="HeaderTextConverter.cs" />
+    <Compile Include="IdentifierDictionary.cs" />
     <Compile Include="NavigationDocument.cs" />
     <Compile Include="PlainTextConverter.cs" />
     <Compile Include="StatusDialog.xaml.cs">
       <DependentUpon>StatusDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="TextConveter.cs" />
+    <Compile Include="Titlepage.cs" />
+    <Page Include="..\ArchiveEpub\EpubCheck\EpubCheckingDialog.xaml">
+      <Link>EpubCheck\EpubCheckingDialog.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\ArchiveEpub\EpubCheck\EpubCheckResultDialog.xaml">
+      <Link>EpubCheck\EpubCheckResultDialog.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

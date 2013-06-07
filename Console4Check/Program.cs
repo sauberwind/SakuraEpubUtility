@@ -34,9 +34,9 @@ namespace Console4Check
             navItems.Add(nav5);
             navItems.Add(nav6);
 
-            var template = @"C:\temp\nav.xhtml";
-            var dst = @"C:\temp\dstnav.xhtml";
-            NavigationDocument.WriteNavigationDocument(template, dst, navItems);
+            //var template = @"C:\temp\nav.xhtml";
+            //var dst = @"C:\temp\dstnav.xhtml";
+            //NavigationDocument.WriteNavigationDocument(template, dst, navItems);
 
         }
 
@@ -55,25 +55,25 @@ namespace Console4Check
 
         static void OverWriteOpf()
         {
-            var opf = @"C:\temp\hoge\OEBPS\content.opf";
-            var meta = new EpubMetaData();
-            meta.title = "タイトル";
-            meta.author = "著者";
-            meta.publisher = "出版社";
-            meta.isRightToLeft = true;
+//            var opf = @"C:\temp\hoge\OEBPS\content.opf";
+////            var meta = new EpubMetaData();
+//            meta.title = "タイトル";
+//            meta.author = "著者";
+//            meta.publisher = "出版社";
+//            meta.isRightToLeft = true;
             
 
-            var ids =new System.Collections.Specialized.StringCollection();
-            ids.Add("パラレル");
-            ids.Add("123");
-            ids.Add("タイトル");
-            ids.Add("456");
-            ids.Add("hoge");
+//            var ids =new System.Collections.Specialized.StringCollection();
+//            ids.Add("パラレル");
+//            ids.Add("123");
+//            ids.Add("タイトル");
+//            ids.Add("456");
+//            ids.Add("hoge");
 
-            var epubDoc = new EpubDocument();
-            epubDoc.SetIdnentiersDictionary(ids);
+//            var epubDoc = new EpubDocument();
+//            epubDoc.SetIdnentiersDictionary(ids);
 
-            PackageDocument.WriteMetaData(opf, meta);
+//            PackageDocument.WriteMetaData(opf, meta);
 
         }
     }

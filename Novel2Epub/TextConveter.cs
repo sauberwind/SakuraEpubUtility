@@ -6,9 +6,9 @@ namespace SakuraEpubUtility
 {
     public class TextConverter
     {
-        public static void ConvertText(string srcFile, string templateFile, ConvertOptions opt)
+        public static List<HeaderAnchor> ConvertText(string srcFile, string templateFile, ConvertOptions opt)
         {
-            var method = new TextComverterMethods(srcFile, templateFile, opt);
+            var method = new TextConverterMethods(srcFile, templateFile, opt);
 
             //フォーマットによりコンバーターを切替える
             switch (opt.format)
@@ -23,23 +23,25 @@ namespace SakuraEpubUtility
             method.PreProcess();
             method.Process();
             method.Output();
+
+            return method.headerAnchors;
         }
     }
 
-    public class TextComverterMethods
+    public class TextConverterMethods
     {
 
         protected List<string> lines;
         protected ConvertOptions option;
         protected string templateFile;
-        protected List<HeaderAnchor> headerAnchors;
+        public List<HeaderAnchor> headerAnchors { get; private set; }
 
 
-        public TextComverterMethods()
+        public TextConverterMethods()
         {
         }
 
-        public TextComverterMethods(string srcFile, string templateFile, ConvertOptions opt)
+        public TextConverterMethods(string srcFile, string templateFile, ConvertOptions opt)
         {
             this.templateFile = templateFile;
             this.option = opt;

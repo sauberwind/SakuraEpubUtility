@@ -54,8 +54,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="..\Novel2Epub\EpubDocument.cs">
-      <Link>EpubDocument.cs</Link>
+    <Compile Include="..\Novel2Epub\EpubMetaData.cs">
+      <Link>EpubMetaData.cs</Link>
     </Compile>
     <Compile Include="EpubArchiver.cs" />
     <Compile Include="EpubCheck\EpubCheckingDialog.xaml.cs">
@@ -65,6 +65,7 @@
       <DependentUpon>EpubCheckResultDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="EpubCheck\EpubCheckWrapper.cs" />
+    <Compile Include="IdentifierDictionary.cs" />
     <Compile Include="PackageDocument.cs" />
     <Compile Include="ZipStorer.cs" />
     <Page Include="EpubCheck\EpubCheckingDialog.xaml">

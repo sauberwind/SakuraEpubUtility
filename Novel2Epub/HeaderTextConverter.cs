@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SakuraEpubUtility
 {
-    class HeaderTextConverter : TextComverterMethods
+    class HeaderTextConverter : TextConverterMethods
     {
         public HeaderTextConverter(string srcFile, string templateFile, ConvertOptions opt)
             : base(srcFile, templateFile, opt)

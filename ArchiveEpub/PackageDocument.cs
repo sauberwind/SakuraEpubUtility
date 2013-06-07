@@ -53,15 +53,15 @@ namespace SakuraEpubUtility
             var idNode = doc.Descendants().Where(e => e.Name.LocalName == "identifier").First();
             if (idNode.Value == "") //IDが空白であれば書き換える
             {
-                if (EpubDocument.identifiers.ContainsKey(ePubDat.title) == true)    //書名が見つかれば
+                if (IdentifierDictionary.identifiers.ContainsKey(ePubDat.title) == true)    //書名が見つかれば
                 {
-                    idNode.Value = EpubDocument.identifiers[ePubDat.title];         //記録されたIDを書き込む
+                    idNode.Value = IdentifierDictionary.identifiers[ePubDat.title];         //記録されたIDを書き込む
                 }
                 else //見つからなければUUIDを記載する
                 {
                     var guid = "urn:uuid:" +  Guid.NewGuid();           //GUIDを作成する
                     idNode.Value=guid;                                  //identifierに記載する
-                    EpubDocument.identifiers.Add(ePubDat.title, guid);  //辞書に追加する
+                    IdentifierDictionary.identifiers.Add(ePubDat.title, guid);  //辞書に追加する
                 }
             }
 

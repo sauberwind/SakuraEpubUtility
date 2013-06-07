@@ -25,7 +25,7 @@ namespace SakuraEpubUtility
 
     public class NavigationDocument
     {
-        public static void WriteNavigationDocument(string template, string dstFile, List<HeaderAnchor> headers)
+        public static void WriteNavigationDocument(string template, List<HeaderAnchor> headers)
         {
             XNamespace ns ="http://www.w3.org/1999/xhtml";
 
@@ -42,6 +42,10 @@ namespace SakuraEpubUtility
 
             foreach (var header in headers)
             {
+                //リンク先の文字列を作成する
+                var linkPath = "text.xhtml#" + header.identifier;
+
+                //ヘッダレベルで階層分けを行う
                 if (header.level == 1)
                 {
                     currentLevel = 1; //ヘッダレベル1
@@ -52,7 +56,7 @@ namespace SakuraEpubUtility
 
                     //リンクを作成する
                     var anchorNode = new XElement(ns+"a");
-                    anchorNode.SetAttributeValue("href", header.identifier);
+                    anchorNode.SetAttributeValue("href", linkPath);
                     anchorNode.Value = header.str;
                     header1Node.Add(anchorNode);
 
@@ -76,15 +80,15 @@ namespace SakuraEpubUtility
 
                     //リンクを作成する
                     var anchorNode = new XElement(ns+"a");
-                    anchorNode.SetAttributeValue("href", header.identifier);
+                    anchorNode.SetAttributeValue("href", linkPath);
                     anchorNode.Value = header.str;
                     header2Node.Add(anchorNode);
 
                     currentLevel=2;
                 }
             }
-            //XMLファイルに書きだす
-            doc.Save(dstFile);
+            //XMLファイルに書きだす(templateファイルに上書きする)
+            doc.Save(template);
         }
     }
 }

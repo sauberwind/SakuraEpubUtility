@@ -2,9 +2,7 @@
 using System.Windows.Controls;
 using System.IO;
 using SakuraEpubUtility.Properties;
-using System.Threading;
 using System.Threading.Tasks;
-using SakuraEpubUtility;
 using System;
 namespace SakuraEpubUtility
 {
@@ -62,7 +60,7 @@ namespace SakuraEpubUtility
                 
                 //ファイル情報を取得する
                 ePubDoc.coverImagePath = cover.Text;    //表紙画像
-                ePubDoc.novelPath = novel.Text;         //本文
+                ePubDoc.novelFileName = novel.Text;         //本文
 
                 //テキストフォーマットを取得する
                 var opt = new ConvertOptions();
@@ -85,7 +83,16 @@ namespace SakuraEpubUtility
 
                 //生成処理実行
                 btn.Content = "EPUBを作成しています";
-                await Task.Run(() => ePubDoc.GenerateEpubDocument());
+                var epubGenerated = await ePubDoc.GenerateEpubDocument();
+
+                if((epubGenerated==true)                //EPUBが生成されて
+                    && (useEpubCheck.IsChecked==true))  //EpubCheckありなら
+                {
+                    btn.Content = "EpubCheckを実施しています";
+                    var epubFileName = ePubDoc.GetEpubFileName();
+                    var epubChecker = new EpubCheckWrapper(javaPathTextBox.Text, EpubCheckPathTextBox.Text, epubFileName);
+                    epubChecker.CheckEpub();
+                }
 
 
                 //設定を保存する

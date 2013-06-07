@@ -48,17 +48,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\ArchiveEpub\EpubArchiver.cs">
-      <Link>EpubArchiver.cs</Link>
-    </Compile>
-    <Compile Include="..\ArchiveEpub\PackageDocument.cs">
-      <Link>PackageDocument.cs</Link>
-    </Compile>
     <Compile Include="..\ArchiveEpub\ZipStorer.cs">
       <Link>ZipStorer.cs</Link>
-    </Compile>
-    <Compile Include="..\Novel2Epub\EpubDocument.cs">
-      <Link>EpubDocument.cs</Link>
     </Compile>
     <Compile Include="..\Novel2Epub\NavigationDocument.cs">
       <Link>NavigationDocument.cs</Link>

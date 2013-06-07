@@ -8,7 +8,7 @@ using System.Web;
 namespace SakuraEpubUtility
 {
     //プレーンテキストをXHTMLにする
-    class PlainTextConverter:TextComverterMethods
+    class PlainTextConverter:TextConverterMethods
     {
 
         public PlainTextConverter(string srcFile,string templateFile,ConvertOptions opt)
