@@ -5,9 +5,7 @@ using System.IO;
 
 namespace SakuraEpubUtility
 {
-    /// <summary>
-    /// MainWindow.xaml の相互作用ロジック
-    /// </summary>
+
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -115,8 +113,10 @@ namespace SakuraEpubUtility
                 }
             }
 
-
+            //アーカイブする
             await EpubArchiver.ArchiveEpub(srcDir, dstFile);
+
+            //EpubCheck
             if (useEpubCheck.IsChecked == true)   //EpubCheckありなら
             {
                 var epubChecker = new EpubCheckWrapper(javaPathTextBox.Text, EpubCheckPathTextBox.Text, dstFile);

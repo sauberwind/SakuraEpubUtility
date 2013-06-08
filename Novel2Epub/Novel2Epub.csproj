@@ -83,7 +83,9 @@
       <DependentUpon>StatusDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="TextConveter.cs" />
+    <Compile Include="TextStyleSheet.cs" />
     <Compile Include="Titlepage.cs" />
+    <Compile Include="XHtmlConverter.cs" />
     <Page Include="..\ArchiveEpub\EpubCheck\EpubCheckingDialog.xaml">
       <Link>EpubCheck\EpubCheckingDialog.xaml</Link>
       <Generator>MSBuild:Compile</Generator>

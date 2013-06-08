@@ -10,6 +10,10 @@ namespace SakuraEpubUtility
     //tocに書き込むヘッダの位置
     public class HeaderAnchor
     {
+        public HeaderAnchor()
+        {
+        }
+
         public HeaderAnchor(int lv, string id, string text)
         {
             level = lv;
@@ -43,7 +47,7 @@ namespace SakuraEpubUtility
             foreach (var header in headers)
             {
                 //リンク先の文字列を作成する
-                var linkPath = "text.xhtml#" + header.identifier;
+                var linkPath = "Text.xhtml#" + header.identifier;
 
                 //ヘッダレベルで階層分けを行う
                 if (header.level == 1)
@@ -51,8 +55,8 @@ namespace SakuraEpubUtility
                     currentLevel = 1; //ヘッダレベル1
 
                     //li要素を作成する
-                    var header1Node = new XElement(ns+"li");   //ノードを作成する
-                    navNode.Add(header1Node);               //nav要素に追加する
+                    var header1Node = new XElement(ns+"li");    //ノードを作成する
+                    firstLevelList.Add(header1Node);            //ルートのol要素に追加する
 
                     //リンクを作成する
                     var anchorNode = new XElement(ns+"a");

@@ -23,8 +23,8 @@ namespace SakuraEpubUtility
     {
         public EpubMetaData metaData { set; get; }
         public ConvertOptions opt { set; get; }
-        public string novelFileName { set; get; }       //小説本文のパス
-        public string coverImagePath { set; get; }  //表紙画像のパス
+        public string novelFileName { set; get; }           //小説本文のパス
+        public string coverImageFileName { set; get; }      //表紙画像のパス
 
         //テンプレートファイルをチェックする
         static public void CheckEpubTemplate()
@@ -42,6 +42,21 @@ namespace SakuraEpubUtility
         //テンプレートからEpubファイルを作成する
         async public Task<bool> GenerateEpubDocument()
         {
+            //ファイルの上書きを確認する
+            var epubFileName = GetEpubFileName();
+            if (File.Exists(epubFileName))
+            {
+                var overwrite = MessageBox.Show("ファイルを上書きしますか?", "Nov2Epub", MessageBoxButton.OKCancel);
+                if (overwrite == MessageBoxResult.OK)
+                {
+                    File.Delete(epubFileName);
+                }
+                else //上書きしないならそのまま終了
+                {
+                    return false;
+                }
+            }
+
             //identifierを読み込む
             IdentifierDictionary.LoadIdnentiersDictionary();
 
@@ -57,7 +72,7 @@ namespace SakuraEpubUtility
 
             //表紙ファイルを更新する
             var coverImageDst = Path.Combine(epubDirName, @"OEBPS\Images\Cover.JPG");
-            File.Copy(coverImagePath, coverImageDst,true);
+            File.Copy(coverImageFileName, coverImageDst,true);
 
             //扉ページを更新する
             var titlePageDst = Path.Combine(epubDirName, @"OEBPS\Text\Title.xhtml");
@@ -67,6 +82,15 @@ namespace SakuraEpubUtility
             var textTemplateFile = Path.Combine(epubDirName, @"OEBPS\Text\Text.xhtml");
             var headerAnchors = TextConverter.ConvertText(novelFileName, textTemplateFile, opt);
 
+            //本文の縦書き/横書きをCSSに設定する
+            var textCssTemplateFile = Path.Combine(epubDirName, @"OEBPS\Styles\Text.css");
+            TextStyleSheet.SetOrientationStyle(textCssTemplateFile,metaData.isVertical);
+
+            //目次の縦書き/横書きをCSSに設定する
+            var navCssTemplateFile = Path.Combine(epubDirName, @"OEBPS\Styles\Nav.css");
+            TextStyleSheet.SetOrientationStyle(navCssTemplateFile, metaData.isVertical);
+
+
             //ナビゲーションドキュメントを作成する
             var navFileName = Path.Combine(epubDirName, @"OEBPS\Text\nav.xhtml");
             NavigationDocument.WriteNavigationDocument(navFileName, headerAnchors);
@@ -75,21 +99,18 @@ namespace SakuraEpubUtility
             var ColophonPage = Path.Combine(epubDirName, @"OEBPS\Text\Colophon.xhtml");
             InfoPage.UpdateTitlePage(ColophonPage, metaData);
 
-            //EPubファイルを作成する
-            var epubFileName = GetEpubFileName();
-            if (File.Exists(epubFileName))
+            //不要ファイルを削除する
+            var thumbsFile = Path.Combine(epubDirName, @"OEBPS\Images\Thumbs.db");
+            if (File.Exists(thumbsFile) == true)
             {
-                var overwrite = MessageBox.Show("ファイルを上書きしますか?","Nov2Epub",MessageBoxButton.OKCancel);
-                if (overwrite == MessageBoxResult.OK)
-                {
-                    File.Delete(epubFileName);
-                }
-                else
-                {
-                    return false;
-                }
+                File.Delete(thumbsFile);
             }
+
+            //EPubファイルを作成する
             await EpubArchiver.ArchiveEpub(epubDirName, epubFileName);
+
+            //テンポラリディレクトリを削除する
+            Directory.Delete(epubDirName,true);
            
             //Identifierを更新する
             IdentifierDictionary.SaveIdentifierDictionary();

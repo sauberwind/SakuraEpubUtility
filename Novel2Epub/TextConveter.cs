@@ -19,6 +19,9 @@ namespace SakuraEpubUtility
                 case TextFormat.PLAIN_TEXT_WITH_HEADER:
                     method = new HeaderTextConverter(srcFile, templateFile, opt);
                     break;
+                case TextFormat.XHTML:
+                    method = new XHtmlConverter(srcFile, templateFile, opt);
+                    break;
             }
             method.PreProcess();
             method.Process();
@@ -70,6 +73,10 @@ namespace SakuraEpubUtility
                 if (option.hasTag != true)  //タグなしであれば
                 {
                     proccessedLines.Add(HttpUtility.HtmlEncode(line));  //禁止文字を置き換える
+                }
+                else    //タグありなら
+                {
+                    proccessedLines.Add(line);  //そのまま追加する
                 }
             }
             lines = proccessedLines;

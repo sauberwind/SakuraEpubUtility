@@ -59,7 +59,7 @@ namespace SakuraEpubUtility
                 ePubDoc.metaData = metaData;
                 
                 //ファイル情報を取得する
-                ePubDoc.coverImagePath = cover.Text;    //表紙画像
+                ePubDoc.coverImageFileName = cover.Text;    //表紙画像
                 ePubDoc.novelFileName = novel.Text;         //本文
 
                 //テキストフォーマットを取得する
@@ -83,17 +83,15 @@ namespace SakuraEpubUtility
 
                 //生成処理実行
                 btn.Content = "EPUBを作成しています";
-                await ePubDoc.GenerateEpubDocument();
+                var isEpubGen = await ePubDoc.GenerateEpubDocument();
 
-                if(useEpubCheck.IsChecked==true)  //EpubCheckありなら
+                if((isEpubGen==true)&&( useEpubCheck.IsChecked==true))  //EpubCheckありなら
                 {
                     btn.Content = "EpubCheckを実施しています";
                     var epubFileName = ePubDoc.GetEpubFileName();
                     var epubChecker = new EpubCheckWrapper(javaPathTextBox.Text, EpubCheckPathTextBox.Text, epubFileName);
                     epubChecker.CheckEpub();
                 }
-
-
                 //設定を保存する
                 SaveDefaults();
 
