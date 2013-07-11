@@ -4,31 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3B79B7CA-6564-4567-AB8C-77FAEA5B5334}</ProjectGuid>
+    <ProjectGuid>{D0EDC3E8-C9F2-462B-8D7F-7645EA7D732C}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SakuraEpubUtility</RootNamespace>
-    <AssemblyName>Novel2Epub</AssemblyName>
+    <RootNamespace>ReTouchEpub</RootNamespace>
+    <AssemblyName>ReTouchEpub</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
-    <TargetFrameworkProfile />
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -39,7 +23,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -49,13 +32,10 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -73,47 +53,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="..\ArchiveEpub\EpubArchiver.cs">
-      <Link>EpubArchiver.cs</Link>
-    </Compile>
-    <Compile Include="..\ArchiveEpub\EpubCheck\EpubCheckingDialog.xaml.cs">
-      <Link>EpubCheck\EpubCheckingDialog.xaml.cs</Link>
-    </Compile>
-    <Compile Include="..\ArchiveEpub\EpubCheck\EpubCheckResultDialog.xaml.cs">
-      <Link>EpubCheck\EpubCheckResultDialog.xaml.cs</Link>
-    </Compile>
-    <Compile Include="..\ArchiveEpub\EpubCheck\EpubCheckWrapper.cs">
-      <Link>EpubCheck\EpubCheckWrapper.cs</Link>
-    </Compile>
-    <Compile Include="..\ArchiveEpub\PackageDocument.cs">
-      <Link>PackageDocument.cs</Link>
-    </Compile>
-    <Compile Include="..\ArchiveEpub\ZipStorer.cs">
-      <Link>ZipStorer.cs</Link>
-    </Compile>
-    <Compile Include="EpubDocument.cs" />
-    <Compile Include="EpubMetaData.cs" />
-    <Compile Include="HeaderTextConverter.cs" />
-    <Compile Include="IdentifierDictionary.cs" />
-    <Compile Include="NavigationDocument.cs" />
-    <Compile Include="PlainTextConverter.cs" />
-    <Compile Include="StatusDialog.xaml.cs">
-      <DependentUpon>StatusDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="TextConveter.cs" />
-    <Compile Include="TextStyleSheet.cs" />
-    <Compile Include="Titlepage.cs" />
-    <Compile Include="XHtmlConverter.cs" />
-    <Page Include="..\ArchiveEpub\EpubCheck\EpubCheckingDialog.xaml">
-      <Link>EpubCheck\EpubCheckingDialog.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="..\ArchiveEpub\EpubCheck\EpubCheckResultDialog.xaml">
-      <Link>EpubCheck\EpubCheckResultDialog.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -126,10 +65,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="StatusDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -157,23 +92,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
-      <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.5 %28x86 および x64%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
