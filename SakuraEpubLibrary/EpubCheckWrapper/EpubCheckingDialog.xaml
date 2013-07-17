@@ -1,0 +1,8 @@
+﻿<Window x:Class="SakuraEpubLibrary.EpubCheckingDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+     Title="EpubCheckingDialog" Height="64.179" Width="189.552" ResizeMode="NoResize" HorizontalAlignment="Center" HorizontalContentAlignment="Center">
+    <DockPanel>
+        <Label HorizontalAlignment="Center" HorizontalContentAlignment="Center">EpubCheckを実施しています</Label>
+    </DockPanel>
+</Window>

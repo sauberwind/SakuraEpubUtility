@@ -1,0 +1,37 @@
+﻿<Window x:Class="SakuraEpubLibrary.PostProcessSettingDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="PostProcessSettingDialog" Height="251.072" Width="358">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Width" Value="50"/>
+            <Setter Property="Margin" Value="5,5"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <EventSetter Event="TextChanged" Handler="TextChanged"/>
+            <EventSetter Event="PreviewDragOver" Handler="OnPreviewDragOver"/>
+            <EventSetter Event ="Drop" Handler="OnDrop"/>
+            <Setter Property="Margin" Value="10,0"/>
+        </Style>
+    </Window.Resources>
+    <StackPanel>
+        <GroupBox Header="EpubCheck">
+            <StackPanel>
+                <Label>java.exeをドロップしてください</Label>
+                <TextBox Name="javaPathTextBox"/>
+                <Label>EpubCheckのjarファイルをドロップしてください</Label>
+                <TextBox Name="ePubCheckPathTextBox"/>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="KindlePreviewer">
+            <StackPanel>
+                <Label>KindlePreviewer.exeをドロップしてください</Label>
+                <TextBox Name="KindePreviewerPathTextBox"/>
+            </StackPanel>
+        </GroupBox>
+        <DockPanel LastChildFill="False">
+            <Button DockPanel.Dock="Right" Click="CancelClick">Cancel</Button>
+            <Button DockPanel.Dock="Right" Click="OkClick">OK</Button>
+        </DockPanel>
+    </StackPanel>
+</Window>

@@ -1,0 +1,15 @@
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\EpubArchiver\bin\Debug\EpubArchiver.exe.config
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\EpubArchiver\bin\Debug\EpubArchiver.exe
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\EpubArchiver\bin\Debug\EpubArchiver.pdb
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\EpubArchiver\obj\Debug\EpubArchiver.csprojResolveAssemblyReference.cache
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\EpubArchiver\obj\Debug\MainWindow.baml
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\EpubArchiver\obj\Debug\MainWindow.g.cs
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\EpubArchiver\obj\Debug\App.g.cs
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\EpubArchiver\obj\Debug\EpubArchiver_MarkupCompile.cache
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\EpubArchiver\obj\Debug\EpubArchiver.g.resources
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\EpubArchiver\obj\Debug\SakuraEpubUtility.Properties.Resources.resources
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\EpubArchiver\obj\Debug\EpubArchiver.csproj.GenerateResource.Cache
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\EpubArchiver\obj\Debug\EpubArchiver.exe
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\EpubArchiver\obj\Debug\EpubArchiver.pdb
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\EpubArchiver\bin\Debug\SakuraEpubLibrary.dll
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\EpubArchiver\bin\Debug\SakuraEpubLibrary.pdb

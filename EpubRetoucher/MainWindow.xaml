@@ -1,0 +1,42 @@
+﻿<Window x:Class="EpubReToucher.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="EpubReToucher" Height="1286" Width="744">
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="Margin" Value="0,0"/>
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="5,5"/>
+        </Style>
+        <Style TargetType="DockPanel">
+            <Setter Property="Margin" Value="3"/>
+        </Style>
+    </Window.Resources>
+
+    <DockPanel>
+        <Label DockPanel.Dock="Top">Epubファイルをドロップ</Label>
+        <TextBox DockPanel.Dock="Top" PreviewDragOver="OnPreviewDragOver" PreviewDrop="OnDrop"></TextBox>
+        <DockPanel DockPanel.Dock="Bottom">
+            <DockPanel>
+                <CheckBox Name="exeEpubCheckCheckBox" DockPanel.Dock="Top">EpubCheckを起動する</CheckBox>
+                <CheckBox Name="exeKindlePreviewerCheckBox" DockPanel.Dock="Top">Kindle Previewerを起動する</CheckBox>
+            </DockPanel>
+            <Button DockPanel.Dock="Left" Click="PostProcessSettingClick">後処理の設定</Button>
+            <Button DockPanel.Dock="Right" Click="ArchiveEpubClick">Epubを出力する</Button>
+        </DockPanel>
+        <DockPanel DockPanel.Dock="Bottom" LastChildFill="False">
+            <Button DockPanel.Dock="Right" IsEnabled="{Binding sourceChanged}" Click="EditorCancelClick">キャンセル</Button>
+            <Button DockPanel.Dock="Right" IsEnabled="{Binding sourceChanged}" Click="EditorSaveClick">保存する</Button>
+        </DockPanel>
+        <DockPanel DockPanel.Dock="Left">
+            <Label DockPanel.Dock="Top">編集するファイル</Label>
+            <ListBox Name="fileLists" MouseDoubleClick="OnSelectTextFile"/>
+        </DockPanel>
+        <DockPanel>
+            <Label DockPanel.Dock="Top" Name="fileLabel">file:</Label>
+            <TextBox Name="sourceEditor" VerticalScrollBarVisibility="Auto" TextWrapping="WrapWithOverflow" TextChanged="SourceChanged">ここにソースコードが出力される</TextBox>
+        </DockPanel>
+    </DockPanel>
+</Window>

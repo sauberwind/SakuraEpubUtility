@@ -1,0 +1,14 @@
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\SakuraEpubLibrary\bin\Debug\SakuraEpubLibrary.dll.config
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\SakuraEpubLibrary\bin\Debug\SakuraEpubLibrary.dll
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\SakuraEpubLibrary\bin\Debug\SakuraEpubLibrary.pdb
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\SakuraEpubLibrary\obj\Debug\SakuraEpubLibrary.dll
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\SakuraEpubLibrary\obj\Debug\SakuraEpubLibrary.pdb
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\SakuraEpubLibrary\obj\Debug\SakuraEpubLibrary.csprojResolveAssemblyReference.cache
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\SakuraEpubLibrary\obj\Debug\PostProcessSettingDialog.baml
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\SakuraEpubLibrary\obj\Debug\PostProcessSettingDialog.g.cs
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\SakuraEpubLibrary\obj\Debug\SakuraEpubLibrary_MarkupCompile.cache
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\SakuraEpubLibrary\obj\Debug\SakuraEpubLibrary.g.resources
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\SakuraEpubLibrary\obj\Debug\EpubCheckWrapper\EpubCheckingDialog.baml
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\SakuraEpubLibrary\obj\Debug\EpubCheckWrapper\EpubCheckResultDialog.baml
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\SakuraEpubLibrary\obj\Debug\EpubCheckWrapper\EpubCheckingDialog.g.cs
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\SakuraEpubLibrary\obj\Debug\EpubCheckWrapper\EpubCheckResultDialog.g.cs
