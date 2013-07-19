@@ -43,7 +43,8 @@ namespace SakuraEpubLibrary
                                                 .Where(e => e.Attribute("href") != null);
             if (itemNodes != null)  //パスが取得できるitem要素があれば
             {
-                var textPathes = itemNodes.Where(e => e.Attribute("media-type").Value == "application/xhtml+xml")   //XHTML
+                var textPathes = itemNodes.Where(e =>(e.Attribute("media-type").Value == "application/xhtml+xml")   //XHTML
+                    ||(e.Attribute("media-type").Value=="text/css"))                                                //またはCSS
                                         .Select(e =>ConvIriToLocalPath(e.Attribute("href").Value,epubPath));        //IRIから変換
                 if (textPathes != null) //テキスト要素があれば
                 {

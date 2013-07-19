@@ -60,6 +60,7 @@ namespace SakuraEpubUtility
             PostProcess.executeEpubCheck = useEpubCheck.IsChecked;              //EpubCheck
             PostProcess.executeKindePreViewer = execKindlePreviewer.IsChecked;  //KindlePreviewer
 
+            //Epubを生成する
             var srcDir = ePubDirPathTextBox.Text;
             var dstFile = srcDir + ".epub";
             Archiver.ArchiveEpubWithPostProcess(srcDir,dstFile);

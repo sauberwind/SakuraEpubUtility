@@ -36,7 +36,7 @@
         </DockPanel>
         <DockPanel>
             <Label DockPanel.Dock="Top" Name="fileLabel">file:</Label>
-            <TextBox Name="sourceEditor" VerticalScrollBarVisibility="Auto" TextWrapping="WrapWithOverflow" TextChanged="SourceChanged">ここにソースコードが出力される</TextBox>
+            <TextBox Name="sourceEditor" VerticalScrollBarVisibility="Auto" TextWrapping="WrapWithOverflow" TextChanged="SourceChanged" AcceptsReturn="True" AcceptsTab="True" AutoWordSelection="True">ここにソースコードが出力される</TextBox>
         </DockPanel>
     </DockPanel>
 </Window>
