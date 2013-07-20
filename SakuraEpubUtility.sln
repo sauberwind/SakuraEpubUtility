@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DebugConsole", "DebugConsol
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EpubReToucher", "EpubRetoucher\EpubReToucher.csproj", "{D542FE01-10D1-4A8C-B243-D8171D0B5CE0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Novel2Epub", "..\SakuraEpubUtility010\Novel2Epub\Novel2Epub.csproj", "{3B79B7CA-6564-4567-AB8C-77FAEA5B5334}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Novel2Epub", "Novel2Epub\Novel2Epub.csproj", "{3B79B7CA-6564-4567-AB8C-77FAEA5B5334}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

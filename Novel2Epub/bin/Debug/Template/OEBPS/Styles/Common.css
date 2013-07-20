@@ -1,0 +1,12 @@
+@charset "utf-8";
+
+/* Kindleガイドライン*/
+body, div, p { text-indent:0; } 
+body > p { text-indent:inherit; }
+ div > p { text-indent:inherit;}
+
+/* 基本フォント */
+body {
+    font-family: Verdana,"メイリオ",Meiryo,"ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro",sans-serif;
+    font-size: 100%;
+}
