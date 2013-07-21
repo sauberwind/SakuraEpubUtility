@@ -1,0 +1,14 @@
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\EpubRetoucher\bin\Release\EpubRetoucher.exe.config
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\EpubRetoucher\bin\Release\EpubRetoucher.exe
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\EpubRetoucher\bin\Release\EpubRetoucher.pdb
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\EpubRetoucher\bin\Release\SakuraEpubLibrary.dll
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\EpubRetoucher\bin\Release\SakuraEpubLibrary.pdb
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\EpubRetoucher\obj\Release\MainWindow.baml
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\EpubRetoucher\obj\Release\MainWindow.g.cs
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\EpubRetoucher\obj\Release\App.g.cs
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\EpubRetoucher\obj\Release\EpubRetoucher_MarkupCompile.cache
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\EpubRetoucher\obj\Release\EpubRetoucher.g.resources
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\EpubRetoucher\obj\Release\EpubReToucher.Properties.Resources.resources
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\EpubRetoucher\obj\Release\EpubReToucher.csproj.GenerateResource.Cache
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\EpubRetoucher\obj\Release\EpubRetoucher.exe
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\EpubRetoucher\obj\Release\EpubRetoucher.pdb

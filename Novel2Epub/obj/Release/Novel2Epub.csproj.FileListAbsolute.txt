@@ -1,0 +1,17 @@
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\Novel2Epub\bin\Release\Novel2Epub.exe.config
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\Novel2Epub\bin\Release\Novel2Epub.exe
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\Novel2Epub\bin\Release\Novel2Epub.pdb
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\Novel2Epub\bin\Release\SakuraEpubLibrary.dll
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\Novel2Epub\bin\Release\SakuraEpubLibrary.pdb
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\Novel2Epub\obj\Release\Novel2Epub.csprojResolveAssemblyReference.cache
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\Novel2Epub\obj\Release\MainWindow.baml
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\Novel2Epub\obj\Release\StatusDialog.baml
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\Novel2Epub\obj\Release\MainWindow.g.cs
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\Novel2Epub\obj\Release\StatusDialog.g.cs
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\Novel2Epub\obj\Release\App.g.cs
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\Novel2Epub\obj\Release\Novel2Epub_MarkupCompile.cache
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\Novel2Epub\obj\Release\Novel2Epub.g.resources
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\Novel2Epub\obj\Release\SakuraEpubUtility.Properties.Resources.resources
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\Novel2Epub\obj\Release\Novel2Epub.csproj.GenerateResource.Cache
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\Novel2Epub\obj\Release\Novel2Epub.exe
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\Novel2Epub\obj\Release\Novel2Epub.pdb
