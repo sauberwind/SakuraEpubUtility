@@ -2,7 +2,9 @@
 using System.IO;
 using System.Diagnostics;
 using System.Windows;
-
+using System.Xml;
+using System.Xml.Linq;
+using System.Linq;
 namespace SakuraEpubLibrary
 {
     //Epub生成後の後処理
@@ -16,23 +18,81 @@ namespace SakuraEpubLibrary
         public static bool? executeEpubCheck { set; get; }      //ePubCheckを実行するか否か
         public static bool? executeKindePreViewer { set; get; } //KindlePreviewerを起動するか否か
                                                                 //EpubCheckの結果により上書きされるためDoPostProcessごとに書き込むこと
-
-        //デフォルト値(前回値)を読み出す
-        public static void LoadDefaults()
+        static PostProcess()
         {
-            javaPath = Properties.Settings.Default.javaPathDefault;
-            ePubCheckPath = Properties.Settings.Default.epubCheckPathDefault;
-            kindlePreViewerPath = Properties.Settings.Default.kpvPathDefault;
+            javaPath = "";              //仮に全て値なしとする
+            ePubCheckPath = "";
+            kindlePreViewerPath = "";
+
+            var settingFile = GetPostProcessSettingFile();
+            if (File.Exists(settingFile) == true)   //設定ファイルがあれば
+            {
+                try
+                {
+                    var doc = XDocument.Load(settingFile);
+                    javaPath = doc.Descendants("javaPath").First().Value;
+                    ePubCheckPath = doc.Descendants("ePubCheckPath").First().Value;
+                    kindlePreViewerPath = doc.Descendants("kindlePreViewerPath").First().Value;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("後処理設定ファイルを読み出すことができませんでした");
+                }
+            }
+        }
+        //PostProcessのデータを格納するXMLファイルへのパス
+        //c:\user\username\AppData\Roaming\SakuraEpubUtility\PostProcessSetting.xml
+        static string GetPostProcessSettingFile()
+        {
+            string ret = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            ret = Path.Combine(ret, "SakuraEpubUtility");
+            ret = Path.Combine(ret, "PostProcessSettting.xml");
+
+            return (ret);
         }
 
         //現在の値をデフォルト値に書き込む
         public static void SaveDefaults()
         {
-            Properties.Settings.Default.javaPathDefault = javaPath;
-            Properties.Settings.Default.epubCheckPathDefault=ePubCheckPath;
-            Properties.Settings.Default.kpvPathDefault=kindlePreViewerPath;
 
-            Properties.Settings.Default.Save();
+
+
+            var xml = new XDocument(new XDeclaration("1.0", "utf-8", "true"));
+
+            var postProcessRootNode = new XElement("postProcessRoot");
+            xml.Add(postProcessRootNode);
+
+            //javaPathのノードを追加する
+            var javaPathNode = new XElement("javaPath");
+            javaPathNode.Value = javaPath;
+            postProcessRootNode.Add(javaPathNode);
+
+            //EpubCheckのノードを追加するする
+            var epubCheckNode = new XElement("ePubCheckPath");
+            epubCheckNode.Value = ePubCheckPath;
+            postProcessRootNode.Add(epubCheckNode);
+
+            //KindlePreviwerのノードを追加する
+            var kindlePreviewerNode = new XElement("kindlePreViewerPath");
+            kindlePreviewerNode.Value = kindlePreViewerPath;
+            postProcessRootNode.Add(kindlePreviewerNode);
+
+            var settingFile = GetPostProcessSettingFile();
+            try
+            {
+                var dirName = Path.GetDirectoryName(settingFile);
+                if (Directory.Exists(dirName) != true)   //ディレクトリが存在しなければ作成する
+                {
+                    Directory.CreateDirectory(dirName);
+                }
+
+                xml.Save(settingFile);
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("後処理設定ファイルの書き込みに失敗しました");
+            }
         }
 
         //後処理を実施する(epubはepubファイルのフルパス名)
@@ -44,6 +104,11 @@ namespace SakuraEpubLibrary
                 {
                     throw (new Exception("EPUBファイルが生成されていません"));
                 }
+                if ((executeEpubCheck != true) && (executeKindePreViewer != true))  //後処理なしなら
+                {
+                    MessageBox.Show("EPUBファイルが生成されました\n"+epub);
+                }
+
                 if (executeEpubCheck == true)  //ePubCheckを実施するなら
                 {
                     var hasNoError = EpubCheckWrapper.ExeEpubCheck(epub);
@@ -111,5 +176,6 @@ namespace SakuraEpubLibrary
 
             return (ret);
         }
+
     }
 }

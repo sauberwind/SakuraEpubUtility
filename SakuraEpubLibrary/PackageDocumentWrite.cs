@@ -127,9 +127,9 @@ namespace SakuraEpubLibrary
                 packNode.SetAttributeValue("unique-identifier", uniqueIDName);  //パッケージノードのunique-identifier属性を更新する
             }
             //identifierノードを更新する
-            var idNode = dcNodes.Where(e => e.Name.LocalName == "identifier")           //identifier要素
-                                .Where(e => e.Attribute("id") != null)                  //id属性がある
-                                .Where(e => e.Attribute("id").Value == uniqueIDName)    //id属性がunique ID
+            var idNodes = dcNodes.Where(e => e.Name.LocalName == "identifier")           //identifier要素
+                                .Where(e => e.Attribute("id") != null);                  //id属性がある
+            var idNode = idNodes.Where(e => e.Attribute("id").Value == uniqueIDName)    //id属性がunique ID
                                 .FirstOrDefault();
             if (idNode != null)    //IDノードが見つかったのでIDを書き込む
             {
@@ -187,7 +187,7 @@ namespace SakuraEpubLibrary
             {
                 return;
             }
-            if (IdentifierDictionary.identifiers.ContainsKey(title) == true)    //書名が見つかれば
+            if(IdentifierDictionary.identifiers.ContainsKey(title) == true)     //書名が見つかれば
             {
                 idNode.Value = IdentifierDictionary.identifiers[title];         //記録されたIDを書き込む
             }

@@ -1,7 +1,7 @@
 ﻿<Window x:Class="EpubReToucher.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="EpubReToucher" Height="1286" Width="744">
+        Title="EpubReToucher" Height="424" Width="535.55" Closed="OnClosed">
     <Window.Resources>
         <Style TargetType="Label">
             <Setter Property="Margin" Value="0,0"/>
@@ -17,14 +17,14 @@
 
     <DockPanel>
         <Label DockPanel.Dock="Top">Epubファイルをドロップ</Label>
-        <TextBox DockPanel.Dock="Top" PreviewDragOver="OnPreviewDragOver" PreviewDrop="OnDrop"></TextBox>
+        <TextBox DockPanel.Dock="Top" PreviewDragOver="OnPreviewDragOver" PreviewDrop="OnDrop" IsReadOnly="True"></TextBox>
         <DockPanel DockPanel.Dock="Bottom">
             <DockPanel>
-                <CheckBox Name="exeEpubCheckCheckBox" DockPanel.Dock="Top">EpubCheckを起動する</CheckBox>
-                <CheckBox Name="exeKindlePreviewerCheckBox" DockPanel.Dock="Top">Kindle Previewerを起動する</CheckBox>
+                <CheckBox Name="useEpubCheck" DockPanel.Dock="Top">EpubCheckを起動する</CheckBox>
+                <CheckBox Name="execKindlePreviewer" DockPanel.Dock="Top">Kindle Previewerを起動する</CheckBox>
             </DockPanel>
             <Button DockPanel.Dock="Left" Click="PostProcessSettingClick">後処理の設定</Button>
-            <Button DockPanel.Dock="Right" Click="ArchiveEpubClick">Epubを出力する</Button>
+            <Button Name="ePubGenBtn" DockPanel.Dock="Right" Click="ArchiveEpubClick" Background="#FFFEF4F4">Epubを出力する</Button>
         </DockPanel>
         <DockPanel DockPanel.Dock="Bottom" LastChildFill="False">
             <Button DockPanel.Dock="Right" IsEnabled="{Binding sourceChanged}" Click="EditorCancelClick">キャンセル</Button>
@@ -36,7 +36,7 @@
         </DockPanel>
         <DockPanel>
             <Label DockPanel.Dock="Top" Name="fileLabel">file:</Label>
-            <TextBox Name="sourceEditor" VerticalScrollBarVisibility="Auto" TextWrapping="WrapWithOverflow" TextChanged="SourceChanged" AcceptsReturn="True" AcceptsTab="True" AutoWordSelection="True">ここにソースコードが出力される</TextBox>
+            <TextBox Name="sourceEditor" VerticalScrollBarVisibility="Auto" TextWrapping="WrapWithOverflow" TextChanged="SourceChanged" AcceptsReturn="True" AcceptsTab="True" AutoWordSelection="True"/>
         </DockPanel>
     </DockPanel>
 </Window>

@@ -13,7 +13,7 @@ namespace SakuraEpubLibrary
         public static Dictionary<string, string> identifiers;  //書名とIDの組み合わせ
 
         //タイトルとIDの辞書を読みだす
-        public static void LoadIdnentiersDictionary()
+        static IdentifierDictionary()
         {
             identifiers = new Dictionary<string, string>();
             if (Settings.Default.titleIDs != null)          //IDの記録があれば

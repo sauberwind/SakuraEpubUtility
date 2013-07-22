@@ -5,7 +5,7 @@
         <dc:creator id="creator"></dc:creator>
         <dc:publisher></dc:publisher>
         <dc:language>ja</dc:language>
-        <dc:identifier id="pub-id">urn:uuid:9601A66E-552B-4361-AC97-BB91376E4A1D</dc:identifier>
+        <dc:identifier id="pub-id"></dc:identifier>
         <meta property="dcterms:identifier" id="isbn-id">urn:isbn:9784794936639</meta>
         <meta property="dcterms:modified">2011-09-22T08:30:00Z</meta>
     </metadata>
@@ -16,7 +16,7 @@
           properties="nav" media-type="application/xhtml+xml" />
     <item href="Text/Text.xhtml" id="Text.xhtml" media-type="application/xhtml+xml" />
     <item href="Text/Title.xhtml" id="Title.xhtml" media-type="application/xhtml+xml" />
-    <item href="Images/Cover.JPG" id="Cover.JPG" media-type="image/jpeg" />
+    <item href="Images/Cover.JPG" id="Cover.JPG" properties="cover-image" media-type="image/jpeg" />
     <item href="Styles/Colophon.css" id="Colophon.css" media-type="text/css" />
     <item href="Styles/Common.css" id="Common.css" media-type="text/css" />
     <item href="Styles/Nav.css" id="Nav.css" media-type="text/css" />

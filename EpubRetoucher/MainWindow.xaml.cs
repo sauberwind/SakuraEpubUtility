@@ -1,16 +1,19 @@
-﻿using System.Linq;
+﻿using SakuraEpubLibrary;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using SakuraEpubLibrary;
-using System.IO;
-using System.ComponentModel;
 
 namespace EpubReToucher
 {
     public partial class MainWindow : Window
     {
-        string tempDir;             //テンポラリディレクトリ
+        List<string> tempDirsToDelete;
+        string tempDir = "";        //Epubを解凍したテンポラリディレクトリ
         string epubFile;            //編集前のEPUBファイル
         string orgSource = "";      //編集前のソースの内容
         string targetSource = "";   //編集対象のソースコード
@@ -24,7 +27,13 @@ namespace EpubReToucher
             vm.sourceChanged = false;
 
             //後処理のデフォルト値を読み込む
-            PostProcess.LoadDefaults();
+            UpdatePostProcessEnableStatus();                //後処理可否を描画に反映する
+            if (PostProcess.isEnableEpubCheck() == true)    //EpubCheck可能なら
+            {
+                useEpubCheck.IsChecked = true;              //EpubCheckする
+            }
+            ePubGenBtn.IsEnabled = false;                   //仮に生成できない状態とする
+            tempDirsToDelete = new List<string>();          //削除対象ディレクトリを初期化
         }
 
         //ファイルリストのアイテムがダブルクリックされた。エディタ要素に表示する
@@ -93,9 +102,6 @@ namespace EpubReToucher
                 targetSource = "";          //編集対象ソースをクリア
             }
         }
-        //
-        //エンコード部分を書き換えられた時の処理を考えること！
-        //
         //エディタの保存ボタンが押下されたのでファイルを上書きする
         private void EditorSaveClick(object sender, RoutedEventArgs e)
         {
@@ -108,6 +114,11 @@ namespace EpubReToucher
         //EPUBファイルを書き出す
         private void ArchiveEpubClick(object sender, RoutedEventArgs e)
         {
+            //ボタンの表示をEpub生成中にする
+            var btn = sender as Button;
+            btn.IsEnabled = false;
+            btn.Content = "EPUBを生成しています";
+
             //バックアップファイルを作成する
             var backFileName = Path.ChangeExtension(epubFile, ".bak");
             if (File.Exists(backFileName) == true)  //バックアップファイルが既にあったので削除する
@@ -117,11 +128,15 @@ namespace EpubReToucher
             File.Move(epubFile, backFileName);  //Epubファイルをバックアップファイルにする
 
             //Epubファイルを書き出す
-            PostProcess.executeEpubCheck = exeEpubCheckCheckBox.IsChecked;              //後処理を設定する
-            PostProcess.executeKindePreViewer = exeKindlePreviewerCheckBox.IsChecked;
+            PostProcess.executeEpubCheck = useEpubCheck.IsChecked;              //後処理を設定する
+            PostProcess.executeKindePreViewer = execKindlePreviewer.IsChecked;
             
             //Epubファイルを出力する
             Archiver.ArchiveEpubWithPostProcess(tempDir, epubFile);
+
+            //ボタンの表示を戻す
+            btn.IsEnabled = true;
+            btn.Content = "EPUBを生成する";
         }
 
         //編集対象Epubファイルのテキストボックス
@@ -160,6 +175,8 @@ namespace EpubReToucher
                 textBox.Text = files[0];    //TextBoxに表示する
 
                 tempDir = Unpacker.UnpackEpubToTemp(epubFile);              //Epubをテンポラリフォルダに解凍する
+                tempDirsToDelete.Add(tempDir);                              //削除対象に追加
+
                 var pacDoc = ContainerXML.GetPackageDocument(tempDir);      //パッケージ文書を取得する
                 var textItems = PackageDocument.GetTextItems(pacDoc);       //Epub内のテキストファイルを取得する
                 textItems = textItems.OrderBy(i => i).ToList();             //ソートする
@@ -170,20 +187,71 @@ namespace EpubReToucher
                 {
                     fileLists.Items.Add(item.Remove(0, tempDir.Length + 1));   //相対パス部分だけを表示する
                 }
+
+                ePubGenBtn.IsEnabled = true;    //Epub生成ボタンを動作可能にする
             }
         }
 
-        private void PostProcessSettingClick(object sender, RoutedEventArgs e)
+        //後処理設定ボタン
+        void PostProcessSettingClick(object sender, RoutedEventArgs e)
         {
             //後処理設定ダイアログを開く
             var postProcessSettingDialog = new PostProcessSettingDialog();
             postProcessSettingDialog.ShowDialog();
         }
 
+        //
+        //後処理の実施可否を更新する
+        void UpdatePostProcessEnableStatus()
+        {
+            //EpubCheckの実施可否
+            var epubCheckEnable = PostProcess.isEnableEpubCheck();
+            if (epubCheckEnable != true)    //EpubCheckが実行できないなら
+            {
+                useEpubCheck.IsChecked = false;     //実施しない
+                useEpubCheck.IsEnabled = false;     //Disable
+            }
+            else    //EpubCheck実施可能なら
+            {
+                useEpubCheck.IsEnabled = true;
+            }
+
+            //KindlePreviewerの実施可否
+            var kpvEnable = PostProcess.isEnableExecuteKindlePrevier();
+            if (kpvEnable != true)    //Kindle Previewerが実行できないなら
+            {
+                execKindlePreviewer.IsChecked = false;    //実施しない
+                execKindlePreviewer.IsEnabled = false;    //Disable
+            }
+            else    //実施可能なら
+            {
+                execKindlePreviewer.IsEnabled = true;
+            }
+        }
+
+        //プログラム終了・テンポラリディレクトリを削除する
+        private void OnClosed(object sender, System.EventArgs e)
+        {
+
+            var existTempDirs = tempDirsToDelete.Distinct() //重複を削除する
+                                                .Where(d => Directory.Exists(d) == true);   //存在するディレクトリ
+            try
+            {
+                foreach (var dir in existTempDirs)
+                {
+                    Directory.Delete(dir,true);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("テンポラリディレクトリの削除に失敗しました");
+            }
+        }
     }
 
     public class ViewModel : INotifyPropertyChanged
     {
+        //ソース変更の有無・save/cancelに使用する
         bool _sourceChanged;
         public bool sourceChanged
         {

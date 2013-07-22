@@ -1,0 +1,8 @@
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\DebugConsole\obj\Debug\DebugConsole.csprojResolveAssemblyReference.cache
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\DebugConsole\bin\Debug\DebugConsole.exe.config
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\DebugConsole\bin\Debug\DebugConsole.exe
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\DebugConsole\bin\Debug\DebugConsole.pdb
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\DebugConsole\bin\Debug\SakuraEpubLibrary.dll
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\DebugConsole\bin\Debug\SakuraEpubLibrary.pdb
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\DebugConsole\obj\Debug\DebugConsole.exe
+C:\Users\saube_000\Documents\GitHub\SakuraEpubUtility\DebugConsole\obj\Debug\DebugConsole.pdb

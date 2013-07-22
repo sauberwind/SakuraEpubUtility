@@ -13,10 +13,13 @@ namespace DebugConsole
     {
         static void Main(string[] args)
         {
-            var pacFile = @"C:\Users\saube_000\AppData\Local\Temp\EPUB4dogs";
-            var epubFile = @"C:\Users\saube_000\AppData\Local\Temp\EPUB4dogs.epub";
-
-            Archiver.ArchiveEpub(pacFile, epubFile);
+            //Archiver.ArchiveEpub(pacFile, epubFile);
+            System.Diagnostics.ProcessStartInfo psi =
+    new System.Diagnostics.ProcessStartInfo("test.html");
+            foreach (string s in psi.Verbs)
+            {
+                Console.WriteLine(s);
+            }
 
         }
     }

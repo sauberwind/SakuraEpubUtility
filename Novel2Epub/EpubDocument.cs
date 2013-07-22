@@ -58,10 +58,6 @@ namespace SakuraEpubUtility
                     return false;
                 }
             }
-
-            //identifierを読み込む
-            IdentifierDictionary.LoadIdnentiersDictionary();
-
             //テンプレートファイルをテンポラリディレクトリにコピーする
             var templateDir = GetTemplateDirectory();       //テンプレートディレクトリ
             var tempDir = Path.GetTempPath();               //テンポラリディレクトリ

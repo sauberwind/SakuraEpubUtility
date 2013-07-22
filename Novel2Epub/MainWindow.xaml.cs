@@ -14,8 +14,13 @@ namespace SakuraEpubUtility
             InitializeComponent();
 
             LoadDefaults();                 //テキストボックスに前回起動時の値を読み込む
-            PostProcess.LoadDefaults();     //後処理の前回値を読み込む
 
+            //後処理のデフォルト値を読み込む
+            UpdatePostProcessEnableStatus();                //後処理可否を描画に反映する
+            if (PostProcess.isEnableEpubCheck() == true)    //EpubCheck可能なら
+            {
+                useEpubCheck.IsChecked = true;              //EpubCheckする
+            }
             UpdateGenerateEpubStatus();
         }
 

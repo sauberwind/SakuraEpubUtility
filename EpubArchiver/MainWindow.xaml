@@ -9,7 +9,7 @@
     </Window.Resources>
     <StackPanel>
         <Label>Epubにするディレクトリをドロップしてください</Label>
-        <TextBox Name="ePubDirPathTextBox" PreviewDragOver="OnPreviewDragOver" Drop="OnDrop" TextChanged="TextChanged"/>
+        <TextBox Name="ePubDirPathTextBox" PreviewDragOver="OnPreviewDragOver" Drop="OnDrop" TextChanged="TextChanged" IsReadOnlyCaretVisible="True"/>
         <GroupBox Header="後処理" Margin="10">
             <DockPanel>
                 <Button DockPanel.Dock="Right" Margin="5" Padding="5" Click="PostProcessSettingClick">後処理の設定</Button>
@@ -19,6 +19,6 @@
                 </StackPanel>
             </DockPanel>
         </GroupBox>
-        <Button Name="GenerateEpub" Margin="20,0,20,20" Padding="5" HorizontalAlignment="Center" FontSize="22" VerticalAlignment="Center" Click="GenerateEpub_Click">EPUBを生成する</Button>
+        <Button Name="GenerateEpub" Margin="20,0,20,20" Padding="5" HorizontalAlignment="Center" FontSize="22" VerticalAlignment="Center" Click="GenerateEpub_Click" Background="#FFFEF4F4">EPUBを生成する</Button>
     </StackPanel>
 </Window>

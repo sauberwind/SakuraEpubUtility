@@ -18,15 +18,15 @@
         <GroupBox Header="EpubCheck">
             <StackPanel>
                 <Label>java.exeをドロップしてください</Label>
-                <TextBox Name="javaPathTextBox"/>
+                <TextBox Name="javaPathTextBox" IsReadOnly="True"/>
                 <Label>EpubCheckのjarファイルをドロップしてください</Label>
-                <TextBox Name="ePubCheckPathTextBox"/>
+                <TextBox Name="ePubCheckPathTextBox" IsReadOnly="True"/>
             </StackPanel>
         </GroupBox>
         <GroupBox Header="KindlePreviewer">
             <StackPanel>
                 <Label>KindlePreviewer.exeをドロップしてください</Label>
-                <TextBox Name="KindePreviewerPathTextBox"/>
+                <TextBox Name="KindePreviewerPathTextBox" IsReadOnly="True"/>
             </StackPanel>
         </GroupBox>
         <DockPanel LastChildFill="False">

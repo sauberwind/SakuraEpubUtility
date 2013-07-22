@@ -20,9 +20,9 @@
         <Label>発行元</Label>
         <TextBox Name="publisher"/>
         <Label>表紙ファイル(画像ファイルをドロップしてください)</Label>
-        <TextBox Name="cover"/>
+        <TextBox Name="cover" IsReadOnly="True"/>
         <Label>本文(テキストファイルをドロップしてください)</Label>
-        <TextBox Name="novel"/>
+        <TextBox Name="novel" IsReadOnly="True"/>
         <StackPanel Orientation="Horizontal">
                     <GroupBox Header="縦組み/横組み">
                         <StackPanel Orientation="Vertical">
@@ -63,6 +63,6 @@
                 </StackPanel>
             </DockPanel>
         </GroupBox>
-        <Button Name="GenerateEpub" HorizontalAlignment="Center" Margin="91,20,91,0" FontSize="20" Click="GenerateEPUB" Content="EPUB3ファイルを生成する"/>
+        <Button Name="GenerateEpub" HorizontalAlignment="Center" Margin="91,20,91,0" FontSize="20" Click="GenerateEPUB" Content="EPUB3ファイルを生成する" Background="#FFFEF4F4"/>
     </StackPanel>
 </Window>

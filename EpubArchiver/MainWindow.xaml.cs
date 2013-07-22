@@ -15,7 +15,6 @@ namespace SakuraEpubUtility
             ePubDirPathTextBox.Text = Properties.Settings.Default.epubDirDefault;
 
             //後処理のデフォルト値を読み込む
-            PostProcess.LoadDefaults();
             UpdatePostProcessEnableStatus();                //後処理可否を描画に反映する
             if (PostProcess.isEnableEpubCheck() == true)    //EpubCheck可能なら
             {
@@ -52,6 +51,11 @@ namespace SakuraEpubUtility
         }
         private void GenerateEpub_Click(object sender, RoutedEventArgs e)
         {
+            //ボタンの表示をEpub生成中にする
+            var btn = sender as Button;
+            btn.IsEnabled = false;
+            btn.Content = "EPUBを生成しています";
+
             //EPUBのディレクトリをデフォルト値に設定する
             Properties.Settings.Default.epubDirDefault = ePubDirPathTextBox.Text;
             Properties.Settings.Default.Save();
@@ -65,6 +69,9 @@ namespace SakuraEpubUtility
             var dstFile = srcDir + ".epub";
             Archiver.ArchiveEpubWithPostProcess(srcDir,dstFile);
 
+            //ボタンの表示を戻す
+            btn.IsEnabled = true;
+            btn.Content = "EPUBを生成する";
         }
 
         //後処理設定ボタン

@@ -4,20 +4,21 @@ using System.Linq;
 using System.IO;
 using System.IO.Compression;
 using System.Windows;
+using System.Threading.Tasks;
 
 namespace SakuraEpubLibrary
 {
     public static class Archiver
     {
         //フォルダをEpubファイルに圧縮する(後処理つき)
-        public static void ArchiveEpubWithPostProcess
+        async public static void  ArchiveEpubWithPostProcess
             (
                  string srcDir,             //Epubにするディレクトリ
                  string dstFile             //出力するEpubファイル名
             )
         {
-            //Epubファイルに圧縮する
-            var isArchived = ArchiveEpub(srcDir, dstFile);
+            //Epubファイルに圧縮する・圧縮処理以降は非同期
+            var isArchived = await ArchiveEpub(srcDir, dstFile);
 
             //後処理を実施する
             if (isArchived != true) //Epubファイルが生成できなかった
@@ -32,9 +33,9 @@ namespace SakuraEpubLibrary
 
 
         //フォルダをEpubファイルに圧縮する。異常時はメッセージボックスを表示してfalseを返す
-        public static bool ArchiveEpub(string srcDir, string dstFile)
+        static async Task<bool> ArchiveEpub(string srcDir, string dstFile)
         {
-            bool ret = false;   //仮に生成失敗とする
+            bool ret = false;
 
             var errorMes = CheckEpubDir(srcDir);    //Epubにできるか確認する
             if (errorMes.Count == 0)                //EPUBにできるなら
@@ -47,8 +48,7 @@ namespace SakuraEpubLibrary
 
                     //EPUBを作成する
                     PackEpub(srcDir, dstFile);
-
-                    ret = true; //生成成功
+                    ret = true;     //正常に終了した
                 }
                 catch (Exception ex)
                 {
